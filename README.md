@@ -317,3 +317,8 @@ Updivision Blog: <https://updivision.com/blog/?ref=md2ll-readme>
 
 - [Creative Tim](https://creative-tim.com/?ref=md2ll-readme)
 - [UPDIVISION](https://updivision.com)
+
+## Generar un CRUD
+1. Crear el modelo y migraciones y factories si es necesario `php artisan make:model -mf <nombre-modelo>`
+2. Crear el componente general livewire `php artisan make:livewire <nombre-componente>`
+2. Crear el componente de la table livewire `php artisan make:datatable <nombre-componente-table> <nombre-modelo>`
