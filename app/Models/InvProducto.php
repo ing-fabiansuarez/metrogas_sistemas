@@ -12,11 +12,6 @@ class InvProducto extends Model
     protected $table = 'inv_productos';
     protected $fillable = ['nombre', 'descripcion'];
 
-    public function bodega()
-    {
-        return $this->belongsTo(InvBodega::class);
-    }
-
     public function caracteristicas()
     {
         return $this->hasMany(InvProductoCaracteristica::class);

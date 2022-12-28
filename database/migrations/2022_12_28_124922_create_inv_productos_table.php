@@ -16,7 +16,6 @@ return new class extends Migration {
             $table->id();
             $table->string('nombre');
             $table->string('descripcion');
-            $table->foreignId('bodega_id')->constrained('inv_bodegas');
             $table->timestamps();
         });
     }

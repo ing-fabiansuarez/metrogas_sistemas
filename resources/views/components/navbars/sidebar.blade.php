@@ -18,7 +18,40 @@
 
     <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
         <ul class="navbar-nav">
+
             <li class="nav-item mt-3">
+                <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Inventario
+                </h6>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ Route::currentRouteName() == 'inv.bodegas' ? ' active bg-gradient-primary' : '' }}  "
+                    href="{{ route('inv.bodegas') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">view_in_ar</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Bodegas</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white {{ Route::currentRouteName() == 'inv.productos' ? ' active bg-gradient-primary' : '' }} "
+                    href="{{ route('inv.productos') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i style="font-size: 1rem;" class="fas fa-lg fa-list-ul ps-2 pe-2 text-center"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Productos</span>
+                </a>
+            </li>
+            {{-- <li class="nav-item">
+                <a class="nav-link text-white {{ Route::currentRouteName() == 'user-profile' ? ' active bg-gradient-primary' : '' }} "
+                    href="{{ route('user-profile') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i style="font-size: 1.2rem;" class="fas fa-user-circle ps-2 pe-2 text-center"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Bodegas</span>
+                </a>
+            </li> --}}
+
+            {{-- <li class="nav-item mt-3">
                 <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Laravel examples
                 </h6>
             </li>
@@ -124,7 +157,7 @@
                     </div>
                     <span class="nav-link-text ms-1">Sign Up</span>
                 </a>
-            </li>
+            </li>  --}}
         </ul>
     </div>
     {{-- <div class="sidenav-footer position-absolute w-100 bottom-0 ">
