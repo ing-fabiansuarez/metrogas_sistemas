@@ -13,14 +13,15 @@ class Productos extends Component
 
     public $model;
     public $newCaracteristica;
+    public $arrayCarac;
 
     protected $rules = [
         'model.nombre' => 'required',
         'model.codigo_interno' => 'required',
         'model.serial' => 'required',
         'model.marca_id' => 'required',
-        'newCaracteristica.nombre' => 'required',
-        'newCaracteristica.valor' => 'required',
+        'newCaracteristica.nombre' => '',
+        'newCaracteristica.valor' => '',
     ];
 
     protected $listeners = ['add', 'save', 'edit', 'delete'];
@@ -28,6 +29,8 @@ class Productos extends Component
     public function mount()
     {
         $this->newCaracteristica = new InvProductoCaracteristica();
+        $this->arrayCarac = [];
+        $this->model = new InvProducto();
     }
 
     public function render()
@@ -46,6 +49,8 @@ class Productos extends Component
         $this->validate();
         $this->model->created_by = auth()->user()->id;
         $this->model->save();
+        $this->model->caracteristicas()->delete();
+        $this->model->caracteristicas()->createMany($this->arrayCarac);
         //comunicar a la tabla que hay uno nuevo
         $this->emit('render');
         //ocultar el modal
@@ -58,6 +63,7 @@ class Productos extends Component
         $this->model = $objeto;
         //abrir el modal
         $this->dispatchBrowserEvent('open-modal');
+        $this->loadArrayCaracteristicas();
     }
     public function delete(InvProducto $objeto)
     {
@@ -69,15 +75,34 @@ class Productos extends Component
 
     public function addCaracteristica()
     {
-        $this->model->caracteristicas()->push($this->newCaracteristica);
-        dd($this->model->caracteristicas);
-        $this->model->refresh();
+        $this->validate([
+            'newCaracteristica.nombre' => 'required',
+            'newCaracteristica.valor' => 'required',
+        ]);
+        array_push($this->arrayCarac, [
+            'nombre' => $this->newCaracteristica->nombre,
+            'valor' => $this->newCaracteristica->valor,
+        ]);
         $this->newCaracteristica = new InvProductoCaracteristica();
     }
 
-    public function deleteCaracteristica(InvProductoCaracteristica $object)
+    public function deleteCaracteristica($key_entrada)
     {
-        $object->delete();
-        $this->model->refresh();
+        foreach ($this->arrayCarac as $key => $item) {
+            if ($key == $key_entrada) {
+                unset($this->arrayCarac[$key]);
+            }
+        }
+    }
+
+    private function loadArrayCaracteristicas()
+    {
+        $this->arrayCarac = [];
+        foreach ($this->model->caracteristicas as $item) {
+            array_push($this->arrayCarac, [
+                'nombre' => $item->nombre,
+                'valor' => $item->valor,
+            ]);
+        }
     }
 }

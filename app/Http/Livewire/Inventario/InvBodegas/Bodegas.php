@@ -16,6 +16,11 @@ class Bodegas extends Component
 
     protected $listeners = ['add', 'save', 'edit', 'delete'];
 
+    public function mount()
+    {
+        $this->model = new InvBodega();
+    }
+
     public function render()
     {
         return view('livewire.inventario.inv-bodegas.bodegas');

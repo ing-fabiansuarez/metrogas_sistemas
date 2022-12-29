@@ -79,12 +79,22 @@
                                     <label class="form-label">Caracteristicas</label>
                                     <div class="row">
                                         <div class="col">
-                                            <input wire:model="newCaracteristica.nombre" type="text"
+                                            <input wire:model.defer="newCaracteristica.nombre" type="text"
                                                 class="form-control" placeholder="Nombre">
+                                            @error('newCaracteristica.nombre')
+                                                <span class="text-danger text-message-validation">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
                                         </div>
                                         <div class="col">
-                                            <input wire:model="newCaracteristica.valor" type="text"
+                                            <input wire:model.defer="newCaracteristica.valor" type="text"
                                                 class="form-control" placeholder="Valor">
+                                            @error('newCaracteristica.valor')
+                                                <span class="text-danger text-message-validation">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="row">
@@ -99,25 +109,23 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <table class="table table-sm">
-                                                @if ($model != null)
-                                                    @foreach ($model->caracteristicas as $cara)
-                                                        <tr>
-                                                            <td>
-                                                                {{ $cara->nombre }}
-                                                            </td>
-                                                            <td>
-                                                                {{ $cara->valor }}
-                                                            </td>
-                                                            <td>
-                                                                <button
-                                                                    wire:click="deleteCaracteristica({{ $cara->id }})"
-                                                                    type="button" class="btn btn-danger my-0">
-                                                                    <i class="material-icons">delete</i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endif
+                                                @foreach ($arrayCarac as $key => $item)
+                                                    <tr>
+                                                        <td>
+                                                            {{ $item['nombre'] }}
+                                                        </td>
+                                                        <td>
+                                                            {{ $item['valor'] }}
+                                                        </td>
+                                                        <td>
+                                                            <button
+                                                                wire:click="deleteCaracteristica({{ $key }})"
+                                                                type="button" class="btn btn-danger my-0">
+                                                                <i class="material-icons">delete</i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </table>
                                         </div>
                                     </div>

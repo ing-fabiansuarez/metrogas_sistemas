@@ -18,7 +18,10 @@ return new class extends Migration {
             $table->id();
             $table->string('nombre');
             $table->string('valor');
-            $table->foreignId('producto_id')->constrained('inv_productos');
+            $table
+                ->foreignId('producto_id')
+                ->constrained('inv_productos')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
