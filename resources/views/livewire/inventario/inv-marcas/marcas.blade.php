@@ -11,7 +11,7 @@
                         </div>
                     </div>
                     <div class="card-body px-0 pb-2 mx-4">
-                        <livewire:inventario.inv-bodegas.bodegas-table theme="bootstrap-5" />
+                        <livewire:inventario.inv-marcas.marcas-table theme="bootstrap-5" />
                     </div>
                 </div>
             </div>

@@ -10,6 +10,7 @@ use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\ExampleLaravel\UserManagement;
 use App\Http\Livewire\ExampleLaravel\UserProfile;
 use App\Http\Livewire\Inventario\InvBodegas\Bodegas;
+use App\Http\Livewire\Inventario\InvMarcas\Marcas;
 use App\Http\Livewire\Inventario\InvProductos\Productos;
 use App\Http\Livewire\Notifications;
 use App\Http\Livewire\Profile;
@@ -60,6 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', Dashboard::class)->name('dashboard');
 
     Route::get('bodegas', Bodegas::class)->name('inv.bodegas');
+    Route::get('marcas', Marcas::class)->name('inv.marcas');
     Route::get('productos', Productos::class)->name('inv.productos');
 
     Route::get('billing', Billing::class)->name('billing');

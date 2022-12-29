@@ -1,4 +1,4 @@
-<button wire:click="$emitTo('inventario.inv-bodegas.bodegas','edit',{{ $row->id }})" type="button"
+<button wire:click="$emit('edit',{{ $row->id }})" type="button"
     class="btn btn-success my-0">
     <i class="material-icons">edit</i>
 </button>
