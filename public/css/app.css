@@ -66,6 +66,22 @@
   height: calc(100vh - 50px);
 }
 
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=checkbox]:checked {
+  background: var(--color-primary);
+}
+
+.form-check:not(.form-switch) .form-check-input[type=checkbox]:checked,
+.form-check:not(.form-switch) .form-check-input[type=radio]:checked {
+  border-color: var(--color-primary);
+}
+
 /*!
  * Bootstrap  v5.2.3 (https://getbootstrap.com/)
  * Copyright 2011-2022 The Bootstrap Authors
@@ -2297,7 +2313,8 @@ textarea.form-control-lg {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
 }
 .form-check-input[type=checkbox] {
   border-radius: 0.25em;
