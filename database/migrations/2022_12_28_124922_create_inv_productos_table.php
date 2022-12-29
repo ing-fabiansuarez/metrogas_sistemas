@@ -15,8 +15,11 @@ return new class extends Migration {
         Schema::create('inv_productos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('descripcion');
+            $table->string('codigo_interno');
+            $table->string('serial');
+            $table->foreignId('marca_id')->constrained('inv_marcas');
             $table->timestamps();
+            $table->foreignId('created_by')->constrained('users');
         });
     }
 

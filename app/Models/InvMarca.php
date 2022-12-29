@@ -11,4 +11,9 @@ class InvMarca extends Model
     public $timestamps = true;
     protected $table = 'inv_marcas';
     protected $fillable = ['nombre'];
+
+    public function productos()
+    {
+        return $this->hasMany(InvProducto::class);
+    }
 }

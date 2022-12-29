@@ -2,13 +2,82 @@
 
 namespace App\Http\Livewire\Inventario\InvProductos;
 
+use App\Models\InvMarca;
+use App\Models\InvProducto;
+use App\Models\InvProductoCaracteristica;
 use Livewire\Component;
 
 class Productos extends Component
 {
     public $TITLE_TABLE = 'Productos';
+
+    public $model;
+    public $newCaracteristica;
+
+    protected $rules = [
+        'model.nombre' => 'required',
+        'model.codigo_interno' => 'required',
+        'model.serial' => 'required',
+        'model.marca_id' => 'required',
+        'newCaracteristica.nombre' => 'required',
+        'newCaracteristica.valor' => 'required',
+    ];
+
+    protected $listeners = ['add', 'save', 'edit', 'delete'];
+
+    public function mount()
+    {
+        $this->newCaracteristica = new InvProductoCaracteristica();
+    }
+
     public function render()
     {
-        return view('livewire.inventario.inv-productos.productos');
+        return view('livewire.inventario.inv-productos.productos', [
+            'marcas' => InvMarca::all(),
+        ]);
+    }
+    public function add()
+    {
+        $this->model = new InvProducto();
+    }
+
+    public function save()
+    {
+        $this->validate();
+        $this->model->created_by = auth()->user()->id;
+        $this->model->save();
+        //comunicar a la tabla que hay uno nuevo
+        $this->emit('render');
+        //ocultar el modal
+        $this->dispatchBrowserEvent('close-modal');
+        //mostrar el mensaje de que se creo correctamente
+        $this->emit('message', 'Buen trabajo!', 'Se han guardado los cambios.');
+    }
+    public function edit(InvProducto $objeto)
+    {
+        $this->model = $objeto;
+        //abrir el modal
+        $this->dispatchBrowserEvent('open-modal');
+    }
+    public function delete(InvProducto $objeto)
+    {
+        $this->model = $objeto;
+        $this->model->delete();
+        //comunicar a la tabla que hay uno nuevo
+        $this->emit('render');
+    }
+
+    public function addCaracteristica()
+    {
+        $this->model->caracteristicas()->push($this->newCaracteristica);
+        dd($this->model->caracteristicas);
+        $this->model->refresh();
+        $this->newCaracteristica = new InvProductoCaracteristica();
+    }
+
+    public function deleteCaracteristica(InvProductoCaracteristica $object)
+    {
+        $object->delete();
+        $this->model->refresh();
     }
 }

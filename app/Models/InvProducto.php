@@ -10,10 +10,30 @@ class InvProducto extends Model
     use HasFactory;
     public $timestamps = true;
     protected $table = 'inv_productos';
-    protected $fillable = ['nombre', 'descripcion'];
+    protected $fillable = [
+        'nombre',
+        'codigo_interno',
+        'serial',
+        'marca_id',
+        'created_by',
+    ];
 
     public function caracteristicas()
     {
-        return $this->hasMany(InvProductoCaracteristica::class);
+        return $this->hasMany(
+            InvProductoCaracteristica::class,
+            'producto_id',
+            'id'
+        );
+    }
+
+    public function marca()
+    {
+        return $this->belongsTo(InvMarca::class);
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }

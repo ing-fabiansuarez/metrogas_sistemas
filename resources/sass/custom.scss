@@ -78,3 +78,8 @@
 .form-check:not(.form-switch) .form-check-input[type="radio"]:checked {
     border-color: var(--color-primary);
 }
+
+.bg-primaryy {
+    background-color: var(--color-primary) !important;
+    color: white;
+}

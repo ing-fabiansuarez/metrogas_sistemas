@@ -10,24 +10,50 @@ class ProductosTable extends DataTableComponent
 {
     protected $model = InvProducto::class;
 
+    protected $listeners = ['render' => 'configure'];
+
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')
+            ->setDefaultSort('id', 'desc')
+            ->setConfigurableAreas([
+                'toolbar-left-end' => 'elements.loader',
+                'toolbar-right-start' => 'elements.btn-nuevo',
+            ]);
     }
 
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")
-                ->sortable(),
-            Column::make("Nombre", "nombre")
-                ->sortable(),
-            Column::make("Descripcion", "descripcion")
-                ->sortable(),
-            Column::make("Created at", "created_at")
-                ->sortable(),
-            Column::make("Updated at", "updated_at")
-                ->sortable(),
+            Column::make('Id', 'id')
+                ->sortable()
+                ->searchable(),
+            Column::make('Nombre', 'nombre')
+                ->sortable()
+                ->searchable(),
+            Column::make('Codigo interno', 'codigo_interno')
+                ->sortable()
+                ->searchable(),
+            Column::make('Serial', 'serial')
+                ->sortable()
+                ->searchable(),
+            Column::make('Marca', 'marca_id')
+                ->sortable()
+                ->format(fn($value, $row, Column $column) => $row->marca->nombre)
+                ->searchable(),
+            Column::make('Creado Por', 'created_by')
+                ->sortable()
+                ->format(fn($value, $row, Column $column) => $row->createdBy->name)
+                ->searchable(),
+            Column::make('Fecha Creación', 'created_at')->sortable(),
+            Column::make('Actualización', 'updated_at')->sortable(),
+            Column::make('Acciones')
+                // Note: The view() method is reserved for columns that have a field
+                ->label(
+                    fn($row, Column $column) => view('elements.acciones', [
+                        'row' => $row,
+                    ])
+                ),
         ];
     }
 }

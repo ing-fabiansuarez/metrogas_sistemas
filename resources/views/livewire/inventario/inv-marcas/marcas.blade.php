@@ -19,7 +19,7 @@
     </div>
     <!-- Modal -->
     <div wire:ignore.self class="modal fade" id="modalModelo">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title font-weight-normal" id="exampleModalLabel">{{ $TITLE_TABLE }}</h5>
