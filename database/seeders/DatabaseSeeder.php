@@ -21,6 +21,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@material.com',
             'password' => 'secret',
         ]);
-        InvBodega::factory(30)->create();
+        /* InvBodega::factory(30)->create(); */
     }
 }
