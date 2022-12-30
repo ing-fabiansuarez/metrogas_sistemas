@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('inv_almacen_bodegas', function (Blueprint $table) {
-            //$table->id();
-            $table->primary(['producto_id', 'bodega_id']);
+        Schema::create('inv_ingreso_bodega_detalles', function (Blueprint $table) {
+            /*  $table->id();
+            $table->timestamps(); */
+            $table->primary(['ingreso_bodega_encabezado_id', 'producto_id']);
+            $table->foreignId('ingreso_bodega_encabezado_id')->constrained('inv_ingreso_bodega_encabezados');
             $table->foreignId('producto_id')->constrained('inv_productos');
-            $table->foreignId('bodega_id')->constrained('inv_bodegas');
-            $table->bigInteger('stock');
-            //$table->timestamps();
+            $table->bigInteger('cantidad');
         });
     }
 
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inv_almacen_bodegas');
+        Schema::dropIfExists('inv_ingreso_bodega_detalles');
     }
 };
