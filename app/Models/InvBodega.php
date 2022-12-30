@@ -14,6 +14,6 @@ class InvBodega extends Model
 
     public function productos()
     {
-        return $this->hasMany(InvProducto::class);
+        return $this->belongsToMany(InvProducto::class, 'inv_almacen_bodegas', 'bodega_id', 'producto_id')->using(InvAlmacenBodega::class);
     }
 }

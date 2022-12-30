@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Livewire\Inventario\InvBodegas\Bodegas;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,5 +36,10 @@ class InvProducto extends Model
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function almacenBodega()
+    {
+        return $this->belongsToMany(InvBodega::class, 'inv_almacen_bodegas', 'producto_id', 'bodega_id')->using(InvAlmacenBodega::class);
     }
 }
