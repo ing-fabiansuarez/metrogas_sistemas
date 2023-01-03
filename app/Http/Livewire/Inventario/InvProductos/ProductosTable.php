@@ -28,6 +28,10 @@ class ProductosTable extends DataTableComponent
             Column::make('Id', 'id')
                 ->sortable()
                 ->searchable(),
+          /*   Column::make('Ubicación', 'bodega_id')
+                ->sortable()
+                ->format(fn ($value, $row, Column $column) => $row->bodega != null ? $row->bodega->nombre : 'No esta en bodega')
+                ->searchable(), */
             Column::make('Nombre', 'nombre')
                 ->sortable()
                 ->searchable(),
@@ -39,18 +43,18 @@ class ProductosTable extends DataTableComponent
                 ->searchable(),
             Column::make('Marca', 'marca_id')
                 ->sortable()
-                ->format(fn($value, $row, Column $column) => $row->marca->nombre)
+                ->format(fn ($value, $row, Column $column) => $row->marca->nombre)
                 ->searchable(),
             Column::make('Creado Por', 'created_by')
                 ->sortable()
-                ->format(fn($value, $row, Column $column) => $row->createdBy->name)
+                ->format(fn ($value, $row, Column $column) => $row->createdBy->name)
                 ->searchable(),
             Column::make('Fecha Creación', 'created_at')->sortable(),
             Column::make('Actualización', 'updated_at')->sortable(),
             Column::make('Acciones')
                 // Note: The view() method is reserved for columns that have a field
                 ->label(
-                    fn($row, Column $column) => view('elements.acciones', [
+                    fn ($row, Column $column) => view('elements.acciones', [
                         'row' => $row,
                     ])
                 ),

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Inventario\InvProductos;
 
+use App\Models\InvBodega;
 use App\Models\InvMarca;
 use App\Models\InvProducto;
 use App\Models\InvProductoCaracteristica;
@@ -9,17 +10,19 @@ use Livewire\Component;
 
 class Productos extends Component
 {
-    public $TITLE_TABLE = 'Productos';
+    public $TITLE_TABLE = 'Articulos';
 
     public $model;
     public $newCaracteristica;
     public $arrayCarac;
+    public $idBodega;
 
     protected $rules = [
         'model.nombre' => 'required',
         'model.codigo_interno' => 'required',
         'model.serial' => 'required',
         'model.marca_id' => 'required',
+        'idBodega' => 'required',
         'newCaracteristica.nombre' => '',
         'newCaracteristica.valor' => '',
     ];
@@ -37,6 +40,7 @@ class Productos extends Component
     {
         return view('livewire.inventario.inv-productos.productos', [
             'marcas' => InvMarca::all(),
+            'bodegas' => InvBodega::all()
         ]);
     }
     public function add()
@@ -47,8 +51,12 @@ class Productos extends Component
     public function save()
     {
         $this->validate();
+
         $this->model->created_by = auth()->user()->id;
-        $this->model->save();
+
+        $bodega = InvBodega::find($this->idBodega);
+
+        $bodega->productos()->save($this->model);
         $this->model->caracteristicas()->delete();
         $this->model->caracteristicas()->createMany($this->arrayCarac);
         //comunicar a la tabla que hay uno nuevo

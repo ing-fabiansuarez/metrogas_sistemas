@@ -16,6 +16,7 @@ class InvProducto extends Model
         'codigo_interno',
         'serial',
         'marca_id',
+        'bodega_id',
         'created_by',
     ];
 
@@ -38,8 +39,13 @@ class InvProducto extends Model
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
-    public function almacenBodega()
+    public function ubicacion()
+    {
+        return $this->morphTo(__FUNCTION__, 'ubicacion_type', 'ubicacion_id');
+    }
+
+    /* public function almacenBodega()
     {
         return $this->belongsToMany(InvBodega::class, 'inv_almacen_bodegas', 'producto_id', 'bodega_id')->using(InvAlmacenBodega::class);
-    }
+    } */
 }

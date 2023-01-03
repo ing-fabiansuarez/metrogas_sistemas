@@ -73,6 +73,20 @@
                                         {{ $message }}
                                     </span>
                                 @enderror
+                                <div class="form-group input-group-outline">
+                                    <label class="form-label">Bodega</label>
+                                    <select wire:model.defer="idBodega" type="text" class="form-control">
+                                        <option value="">---Seleccionar---</option>
+                                        @foreach ($bodegas as $item)
+                                            <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                @error('idBodega')
+                                    <span class="text-danger text-message-validation">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group input-group-outline">

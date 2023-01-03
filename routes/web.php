@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('bodegas', Bodegas::class)->name('inv.bodegas');
     Route::get('marcas', Marcas::class)->name('inv.marcas');
-    Route::get('productos', Productos::class)->name('inv.productos');
+    Route::get('articulos', Productos::class)->name('inv.productos');
 
     Route::get('billing', Billing::class)->name('billing');
     Route::get('profile', Profile::class)->name('profile');
