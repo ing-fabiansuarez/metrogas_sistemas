@@ -12,6 +12,7 @@ use App\Http\Livewire\ExampleLaravel\UserProfile;
 use App\Http\Livewire\Inventario\InvBodegas\Bodegas;
 use App\Http\Livewire\Inventario\InvMarcas\Marcas;
 use App\Http\Livewire\Inventario\InvProductos\Productos;
+use App\Http\Livewire\Inventario\InvProductos\SearchDropdown;
 use App\Http\Livewire\Notifications;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\RTL;
@@ -75,3 +76,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('static-sign-up', StaticSignUp::class)->name('static-sign-up');
     Route::get('rtl', RTL::class)->name('rtl');
 });
+
+Route::get('drop', SearchDropdown::class);
