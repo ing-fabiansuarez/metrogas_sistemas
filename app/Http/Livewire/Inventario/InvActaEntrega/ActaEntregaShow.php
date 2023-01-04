@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire\Inventario\InvActaEntrega;
 
-use App\Enums\EStateActaEntrega;
 use App\Models\InvActaEntrega;
+use App\Models\InvProducto;
 use App\Models\User;
 use Livewire\Component;
 
-class ActaEntregaCreate extends Component
+class ActaEntregaShow extends Component
 {
     public $model;
 
@@ -17,14 +17,16 @@ class ActaEntregaCreate extends Component
         'model.descripcion' => 'required',
     ];
 
-    public function mount($model = new InvActaEntrega())
+    protected $listeners = ['addProduct'];
+
+    public function mount(InvActaEntrega $invActaEntrega)
     {
-        $this->model = $model;
+        $this->model = $invActaEntrega;
     }
 
     public function render()
     {
-        return view('livewire.inventario.inv-acta-entrega.acta-entrega-create', [
+        return view('livewire.inventario.inv-acta-entrega.acta-entrega-show', [
             'items' => [
                 ['id' => 'paso1', 'nombre' => 'Crear Acta de Entrega', 'icon' => '\f13e'],
                 ['id' => 'paso2', 'nombre' => 'Agregar Articulos', 'icon' => '\f015'],
@@ -34,12 +36,8 @@ class ActaEntregaCreate extends Component
         ]);
     }
 
-    public function save()
+    public function addProduct(InvProducto $id)
     {
-        $this->validate();
-        $this->model->created_by = auth()->user()->id;
-        $this->model->estado = EStateActaEntrega::CREADO->getId();
-        $this->model->save();
-        return redirect()->route('inv.actas-entrega.show', $this->model->id);
+        dd($id);
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Livewire\ExampleLaravel\UserManagement;
 use App\Http\Livewire\ExampleLaravel\UserProfile;
 use App\Http\Livewire\Inventario\InvActaEntrega\ActaEntrega;
 use App\Http\Livewire\Inventario\InvActaEntrega\ActaEntregaCreate;
+use App\Http\Livewire\Inventario\InvActaEntrega\ActaEntregaShow;
 use App\Http\Livewire\Inventario\InvBodegas\Bodegas;
 use App\Http\Livewire\Inventario\InvMarcas\Marcas;
 use App\Http\Livewire\Inventario\InvProductos\Productos;
@@ -68,6 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('articulos', Productos::class)->name('inv.productos');
     Route::get('actas-de-entrega', ActaEntrega::class)->name('inv.actas-entrega');
     Route::get('actas-de-entrega/nueva', ActaEntregaCreate::class)->name('inv.actas-entrega.create');
+    Route::get('actas-de-entrega/{invActaEntrega}', ActaEntregaShow::class)->name('inv.actas-entrega.show');
 
     Route::get('billing', Billing::class)->name('billing');
     Route::get('profile', Profile::class)->name('profile');
@@ -81,4 +83,3 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('rtl', RTL::class)->name('rtl');
 });
 
-Route::get('drop', SearchDropdown::class);

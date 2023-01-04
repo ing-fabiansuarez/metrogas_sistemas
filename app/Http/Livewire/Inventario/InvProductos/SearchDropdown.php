@@ -9,14 +9,8 @@ class SearchDropdown extends Component
 {
     public $searchTerm = '';
     public $results = [];
+    public $msg = '';
 
-
-    public function mount()
-    {
-        $this->results = InvProducto::latest()
-            ->take(5)
-            ->get();
-    }
     public function updatedSearchTerm()
     {
         $search = $this->searchTerm;
@@ -26,6 +20,11 @@ class SearchDropdown extends Component
                 $query = $query->orWhere('a.codigo_interno', 'like', "%$search%");
                 $query = $query->orWhere('a.serial', 'like', "%$search%");
             })->get();
+        if (count($this->results) <= 0) {
+            $this->msg = "No se encontraron resultados...";
+        }else{
+            $this->msg = "";
+        }
     }
     public function render()
     {
