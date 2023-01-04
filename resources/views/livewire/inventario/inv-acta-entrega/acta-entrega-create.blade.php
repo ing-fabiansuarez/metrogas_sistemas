@@ -8,7 +8,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <x-inventario.acta-entrega.progress-bar :stepsCompletes='1' />
+                    <x-inventario.acta-entrega.progress-bar :stepsCompletes='1' :items="$items" />
                 </div>
             </div>
         </div>
