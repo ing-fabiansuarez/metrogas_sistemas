@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\ExampleLaravel\UserManagement;
 use App\Http\Livewire\ExampleLaravel\UserProfile;
+use App\Http\Livewire\Inventario\InvActaEntrega\ActaEntrega;
+use App\Http\Livewire\Inventario\InvActaEntrega\ActaEntregaCreate;
 use App\Http\Livewire\Inventario\InvBodegas\Bodegas;
 use App\Http\Livewire\Inventario\InvMarcas\Marcas;
 use App\Http\Livewire\Inventario\InvProductos\Productos;
@@ -64,6 +66,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bodegas', Bodegas::class)->name('inv.bodegas');
     Route::get('marcas', Marcas::class)->name('inv.marcas');
     Route::get('articulos', Productos::class)->name('inv.productos');
+    Route::get('actas-de-entrega', ActaEntrega::class)->name('inv.actas-entrega');
+    Route::get('actas-de-entrega/nueva', ActaEntregaCreate::class)->name('inv.actas-entrega.create');
 
     Route::get('billing', Billing::class)->name('billing');
     Route::get('profile', Profile::class)->name('profile');

@@ -51,6 +51,16 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link text-white {{ Route::currentRouteName() == 'inv.actas-entrega' ? ' active bg-gradient-primary' : '' }}  "
+                    href="{{ route('inv.actas-entrega') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">receipt_long</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Actas de Entrega</span>
+                </a>
+            </li>
+
             {{-- <li class="nav-item">
                 <a class="nav-link text-white {{ Route::currentRouteName() == 'user-profile' ? ' active bg-gradient-primary' : '' }} "
                     href="{{ route('user-profile') }}">
