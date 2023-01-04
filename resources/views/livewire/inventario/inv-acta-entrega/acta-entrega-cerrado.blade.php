@@ -4,70 +4,49 @@
             <div class="card">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-uppercase ps-3">Acta de entrega de articulos al empleado</h6>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="text-white text-uppercase ps-3">Acta de entrega de articulos al empleado</h6>
+                            <button class="btn bg-primaryy mx-3">Imprimir</button>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <x-inventario.acta-entrega.progress-bar :stepsCompletes='2' :items="$items" />
+
                     <div class="bg-light my-3">
                         <div class="row">
                             <div class="col-md-5 p-0">
                                 <div class="card card-frame m-3">
                                     <div class="card-body p-3">
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-4">
                                                 <div class="mb-3">
                                                     <label class="form-label">N° de Acta</label>
                                                     <input value="{{ $model->id }}" class="form-control"
                                                         type="text" disabled>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-8">
                                                 <div class="mb-3">
                                                     <label class="form-label">Empleado Responsable</label>
-                                                    <select wire:model.defer="model.responsable" class="form-control">
-                                                        <option value="">--- Seleccióne ---</option>
-                                                        @foreach ($users as $user)
-                                                            <option value="{{ $user->id }}">{{ $user->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('model.responsable')
-                                                        <div class="form-text text-danger text-xs">{{ $message }}
-                                                        </div>
-                                                    @enderror
+                                                    <input value="{{ $model->createdBy->name }}" class="form-control"
+                                                        type="text" disabled>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Fecha de Entrega</label>
-                                                    <input wire:model.defer="model.fecha_entrega" class="form-control"
-                                                        type="date">
-                                                    @error('model.fecha_entrega')
-                                                        <div class="form-text text-danger text-xs">{{ $message }}
-                                                        </div>
-                                                    @enderror
+                                                    <input value="{{ $model->fecha_entrega }}" class="form-control"
+                                                        type="date" disabled>
+
                                                 </div>
                                             </div>
                                             <div class="form-floating">
-                                                <textarea wire:model.defer="model.descripcion" class="form-control" style="height: 100px"></textarea>
+                                                <textarea class="form-control" style="height: 100px" disabled>{{ $model->descripcion }}</textarea>
                                                 <label>Observación</label>
                                             </div>
-                                            @error('model.descripcion')
-                                                <div class="form-text text-danger text-xs">{{ $message }}</div>
-                                            @enderror
-
                                         </div>
-                                        {{-- <div class="row">
-                                                <div>
-                                                    <b>N° Acta de Entrega:</b> {{ $model->id }}
-                                                </div>
-                                                <div><b>Responsable:</b> {{ $model->createdBy->name }}</div>
-                                                <div><b>Fecha de Entrega:</b> {{ $model->fecha_entrega }}</div>
-                                                <b>Descripción:</b>
-                                                <p>{{ $model->descripcion }}</p>
-                                            </div> --}}
+
                                     </div>
                                 </div>
 
@@ -88,7 +67,7 @@
                                                     <th
                                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                                         Marca</th>
-                                                    <th class="text-secondary opacity-7"></th>
+                                                    {{-- <th class="text-secondary opacity-7"></th> --}}
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -116,32 +95,25 @@
                                                             <span
                                                                 class="text-secondary text-xs font-weight-normal">{{ $item->marca->nombre }}</span>
                                                         </td>
-                                                        <td class="align-middle">
+                                                        {{-- <td class="align-middle">
                                                             <button
                                                                 wire:click="$emit('deleteDetalle',{{ $item->id }})"
                                                                 type="button" class="btn btn-danger my-0">
                                                                 <i class="material-icons">delete</i>
                                                             </button>
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <div class="mt-3">
-                                    @livewire('inventario.inv-productos.search-dropdown')
-                                </div>
+
 
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex flex-row-reverse">
-                        <div class="p-2">
-                            <button wire:click="$emit('finalizar')"
-                                class="btn bg-gradient-primary">Finalizar</button>
-                        </div>
-                    </div>
+
 
                 </div>
             </div>

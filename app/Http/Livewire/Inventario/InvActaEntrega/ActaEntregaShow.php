@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Inventario\InvActaEntrega;
 
+use App\Enums\EStateActaEntrega;
 use App\Models\InvActaEntrega;
 use App\Models\InvProducto;
 use App\Models\User;
@@ -17,7 +18,7 @@ class ActaEntregaShow extends Component
         'model.descripcion' => 'required',
     ];
 
-    protected $listeners = ['addProduct'];
+    protected $listeners = ['selectProduct' => 'addDetalle', 'deleteDetalle', 'finalizar'];
 
     public function mount(InvActaEntrega $invActaEntrega)
     {
@@ -26,18 +27,37 @@ class ActaEntregaShow extends Component
 
     public function render()
     {
-        return view('livewire.inventario.inv-acta-entrega.acta-entrega-show', [
-            'items' => [
-                ['id' => 'paso1', 'nombre' => 'Crear Acta de Entrega', 'icon' => '\f13e'],
-                ['id' => 'paso2', 'nombre' => 'Agregar Articulos', 'icon' => '\f015'],
-                ['id' => 'paso3', 'nombre' => 'Revisión', 'icon' => '\f007'],
-            ],
-            'users' => User::getEmpleadosActivos()
-        ]);
+        
+        switch ($this->model->estado) {
+            case EStateActaEntrega::CREADO->getId():
+                return view('livewire.inventario.inv-acta-entrega.acta-entrega-show', [
+                    'items' => [
+                        ['id' => 'paso1', 'nombre' => 'Crear Acta de Entrega', 'icon' => '\f13e'],
+                        ['id' => 'paso2', 'nombre' => 'Agregar Articulos', 'icon' => '\f015'],
+                        /* ['id' => 'paso3', 'nombre' => 'Revisión', 'icon' => '\f007'], */
+                    ],
+                    'users' => User::getEmpleadosActivos()
+                ]);
+                break;
+            case EStateActaEntrega::CERRADO->getId():
+                return view('livewire.inventario.inv-acta-entrega.acta-entrega-cerrado');
+                break;
+        }
     }
 
-    public function addProduct(InvProducto $id)
+    public function addDetalle(InvProducto $product)
     {
-        dd($id);
+        $this->model->detalle()->save($product, ['stock' => 1]);
+        $this->model->refresh();
+    }
+    public function deleteDetalle(InvProducto $product)
+    {
+        $this->model->detalle()->detach($product);
+        $this->model->refresh();
+    }
+    public function finalizar()
+    {
+        $this->model->estado = EStateActaEntrega::CERRADO->getId();
+        $this->model->save();
     }
 }

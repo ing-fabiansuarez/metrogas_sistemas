@@ -6,11 +6,13 @@ namespace App\Enums;
 enum EStateActaEntrega
 {
     case CREADO;
+    case CERRADO;
 
     public function getId(): int
     {
         return match ($this) {
             EStateActaEntrega::CREADO => 1,
+            EStateActaEntrega::CERRADO => 2,
         };
     }
 
@@ -18,6 +20,7 @@ enum EStateActaEntrega
     {
         return match ($this) {
             EStateActaEntrega::CREADO => 'CREADO',
+            EStateActaEntrega::CERRADO => 'CERRADO',
         };
     }
 

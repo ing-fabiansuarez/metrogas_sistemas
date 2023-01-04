@@ -28,7 +28,7 @@ class ActaEntregaCreate extends Component
             'items' => [
                 ['id' => 'paso1', 'nombre' => 'Crear Acta de Entrega', 'icon' => '\f13e'],
                 ['id' => 'paso2', 'nombre' => 'Agregar Articulos', 'icon' => '\f015'],
-                ['id' => 'paso3', 'nombre' => 'Revisión', 'icon' => '\f007'],
+                /*   ['id' => 'paso3', 'nombre' => 'Revisión', 'icon' => '\f007'], */
             ],
             'users' => User::getEmpleadosActivos()
         ]);

@@ -14,15 +14,18 @@ class SearchDropdown extends Component
     public function updatedSearchTerm()
     {
         $search = $this->searchTerm;
-        $this->results = InvProducto::from('inv_productos as a')
-            ->where(function ($query) use ($search) {
-                $query = $query->orWhere('a.nombre', 'like', "%$search%");
-                $query = $query->orWhere('a.codigo_interno', 'like', "%$search%");
-                $query = $query->orWhere('a.serial', 'like', "%$search%");
-            })->get();
-        if (count($this->results) <= 0) {
-            $this->msg = "No se encontraron resultados...";
-        }else{
+        if ($this->searchTerm != '') {
+            $this->results = InvProducto::from('inv_productos as a')
+                ->where(function ($query) use ($search) {
+                    $query = $query->orWhere('a.nombre', 'like', "%$search%");
+                    $query = $query->orWhere('a.codigo_interno', 'like', "%$search%");
+                    $query = $query->orWhere('a.serial', 'like', "%$search%");
+                })->get();
+            if (count($this->results) <= 0) {
+                $this->msg = "No se encontraron resultados...";
+            }
+        } else {
+            $this->results = [];
             $this->msg = "";
         }
     }

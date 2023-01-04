@@ -13,5 +13,10 @@ class InvActaEntrega extends Model
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
+
+    public function detalle()
+    {
+        return $this->belongsToMany(InvProducto::class, 'inv_acta_entrega_detalles', 'acta_entrega_id', 'producto_id')->using(InvActaEntregaDetalle::class);
+    }
     
 }

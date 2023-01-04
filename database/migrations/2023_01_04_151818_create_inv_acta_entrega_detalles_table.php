@@ -14,8 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('inv_acta_entrega_detalles', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            /* $table->id();
+            $table->timestamps(); */
+            $table->primary(['producto_id', 'acta_entrega_id']);
+            $table->foreignId('producto_id')->constrained('inv_productos');
+            $table->foreignId('acta_entrega_id')->constrained('inv_acta_entregas');
+            $table->bigInteger('stock');
         });
     }
 

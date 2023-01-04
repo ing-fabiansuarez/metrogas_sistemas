@@ -84,7 +84,7 @@
 
 .bg-primaryy {
   background-color: var(--color-primary) !important;
-  color: white;
+  color: white !important;
 }
 
 /*!
