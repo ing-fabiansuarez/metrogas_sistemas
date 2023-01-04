@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('inv_acta_entregas', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->date('fecha_entrega');
             $table->foreignId('responsable')->constrained('users');
+            $table->tinyInteger('estado');
             $table->timestamps();
             $table->foreignId('created_by')->constrained('users');
         });
