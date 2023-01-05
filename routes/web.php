@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\ExampleLaravel\UserManagement;
 use App\Http\Livewire\ExampleLaravel\UserProfile;
+use App\Http\Livewire\Inventario\InvActaDevolucion\ActaDevolucion;
+use App\Http\Livewire\Inventario\InvActaDevolucion\ActaDevolucionCreate;
+use App\Http\Livewire\Inventario\InvActaDevolucion\ActaDevolucionShow;
 use App\Http\Livewire\Inventario\InvActaEntrega\ActaEntrega;
 use App\Http\Livewire\Inventario\InvActaEntrega\ActaEntregaCreate;
 use App\Http\Livewire\Inventario\InvActaEntrega\ActaEntregaShow;
@@ -70,6 +73,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('actas-de-entrega', ActaEntrega::class)->name('inv.actas-entrega');
     Route::get('actas-de-entrega/nueva', ActaEntregaCreate::class)->name('inv.actas-entrega.create');
     Route::get('actas-de-entrega/{invActaEntrega}', ActaEntregaShow::class)->name('inv.actas-entrega.show');
+    Route::get('actas-de-devolucion', ActaDevolucion::class)->name('inv.acta-devolucion');
+    Route::get('actas-de-devolucion/nueva', ActaDevolucionCreate::class)->name('inv.actas-devolucion.create');
+    Route::get('actas-de-devolucion/{invActaDevolucion}', ActaDevolucionShow::class)->name('inv.actas-devolucion.show');
 
     Route::get('billing', Billing::class)->name('billing');
     Route::get('profile', Profile::class)->name('profile');
@@ -82,4 +88,3 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('static-sign-up', StaticSignUp::class)->name('static-sign-up');
     Route::get('rtl', RTL::class)->name('rtl');
 });
-
