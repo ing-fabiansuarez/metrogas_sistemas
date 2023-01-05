@@ -18,4 +18,9 @@ class InvActaDevolucion extends Model
     {
         return $this->belongsToMany(InvProducto::class, 'inv_acta_devolucion_detalles', 'acta_devolucion_id', 'producto_id')->using(InvActaDevolucionDetalle::class);
     }
+
+    public function quienEntrega()
+    {
+        return $this->belongsTo(User::class, 'quien_entrega', 'id');
+    }
 }

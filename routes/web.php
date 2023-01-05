@@ -1,14 +1,9 @@
 <?php
 
-use App\Http\Livewire\Auth\ForgotPassword;
+use App\Http\Controllers\GenerarPdfController;
 use App\Http\Livewire\Auth\Login;
-use App\Http\Livewire\Auth\Register;
-use App\Http\Livewire\Auth\ResetPassword;
-use App\Http\Livewire\Billing;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Dashboard;
-use App\Http\Livewire\ExampleLaravel\UserManagement;
-use App\Http\Livewire\ExampleLaravel\UserProfile;
 use App\Http\Livewire\Inventario\InvActaDevolucion\ActaDevolucion;
 use App\Http\Livewire\Inventario\InvActaDevolucion\ActaDevolucionCreate;
 use App\Http\Livewire\Inventario\InvActaDevolucion\ActaDevolucionShow;
@@ -18,15 +13,10 @@ use App\Http\Livewire\Inventario\InvActaEntrega\ActaEntregaShow;
 use App\Http\Livewire\Inventario\InvBodegas\Bodegas;
 use App\Http\Livewire\Inventario\InvMarcas\Marcas;
 use App\Http\Livewire\Inventario\InvProductos\Productos;
-use App\Http\Livewire\Inventario\InvProductos\SearchDropdown;
-use App\Http\Livewire\Notifications;
-use App\Http\Livewire\Profile;
-use App\Http\Livewire\RTL;
-use App\Http\Livewire\StaticSignIn;
-use App\Http\Livewire\StaticSignUp;
-use App\Http\Livewire\Tables;
-use App\Http\Livewire\VirtualReality;
-use GuzzleHttp\Middleware;
+use App\Models\InvActaDevolucion;
+use App\Models\InvActaEntrega;
+
+use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,27 +32,25 @@ use GuzzleHttp\Middleware;
 Route::get('/', function () {
     return redirect('sign-in');
 });
-
-Route::get('forgot-password', ForgotPassword::class)
+/* Route::get('forgot-password', ForgotPassword::class)
     ->middleware('guest')
     ->name('password.forgot');
 Route::get('reset-password/{id}', ResetPassword::class)
     ->middleware('signed')
     ->name('reset-password');
-
 Route::get('sign-up', Register::class)
     ->middleware('guest')
-    ->name('register');
+    ->name('register'); */
 Route::get('sign-in', Login::class)
     ->middleware('guest')
     ->name('login');
 
-Route::get('user-profile', UserProfile::class)
+/* Route::get('user-profile', UserProfile::class)
     ->middleware('auth')
     ->name('user-profile');
 Route::get('user-management', UserManagement::class)
     ->middleware('auth')
-    ->name('user-management');
+    ->name('user-management'); */
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('dashboard', Dashboard::class)->name('dashboard');
@@ -77,7 +65,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('actas-de-devolucion/nueva', ActaDevolucionCreate::class)->name('inv.actas-devolucion.create');
     Route::get('actas-de-devolucion/{invActaDevolucion}', ActaDevolucionShow::class)->name('inv.actas-devolucion.show');
 
-    Route::get('billing', Billing::class)->name('billing');
+    Route::prefix('generar-pdf')->name('pdf.')->group(function () {
+        Route::get('/acta-de-entrega/{actaEntrega}', [GenerarPdfController::class, 'generarActaEntrega'])->name('acta-entrega');
+        Route::get('/acta-de-devolucion/{actaDevolucion}', [GenerarPdfController::class, 'generarActaDevolucion'])->name('acta-devolucion');
+    });
+
+    /*   Route::get('billing', Billing::class)->name('billing');
     Route::get('profile', Profile::class)->name('profile');
     Route::get('tables', Tables::class)->name('tables');
     Route::get('notifications', Notifications::class)->name('notifications');
@@ -86,5 +79,5 @@ Route::group(['middleware' => 'auth'], function () {
     );
     Route::get('static-sign-in', StaticSignIn::class)->name('static-sign-in');
     Route::get('static-sign-up', StaticSignUp::class)->name('static-sign-up');
-    Route::get('rtl', RTL::class)->name('rtl');
+    Route::get('rtl', RTL::class)->name('rtl'); */
 });
