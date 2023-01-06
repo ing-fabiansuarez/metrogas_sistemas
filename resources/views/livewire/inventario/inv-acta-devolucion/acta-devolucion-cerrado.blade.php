@@ -6,7 +6,7 @@
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                         <div class="d-flex justify-content-between">
                             <h6 class="text-white text-uppercase ps-3">Acta de Devolución de articulos del empleado</h6>
-                            <button class="btn bg-primaryy mx-3">Imprimir</button>
+                            <a href="{{ route('pdf.acta-devolucion', $model) }}" class="btn bg-primaryy mx-3">Imprimir</a>
                         </div>
                     </div>
                 </div>

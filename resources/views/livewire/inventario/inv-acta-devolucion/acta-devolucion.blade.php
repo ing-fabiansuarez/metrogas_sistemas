@@ -17,3 +17,44 @@
     </div>
 
 </div>
+
+@push('js')
+    
+    <script>
+        window.addEventListener('close-modal', event => {
+            $('#modalModelo').modal('hide');
+            $('.modal-backdrop').remove();
+        });
+        window.addEventListener('open-modal', event => {
+            $('#modalModelo').modal('show');
+        });
+        Livewire.on('message', function(title, message) {
+            Swal.fire(
+                title,
+                message,
+                'success'
+            )
+        });
+        Livewire.on('deleteMsg', objId => {
+            Swal.fire({
+                title: '¿Está Seguro?',
+                text: 'Se eliminara el registro seleccionado.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si estoy seguro',
+                cancelButtonText: 'Cancelar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.emit('delete', objId);
+                    Swal.fire(
+                        '{{ __('forms.deleted') }}',
+                        '{{ __('forms.message.delete') }}',
+                        'success'
+                    )
+                }
+            })
+        });
+    </script>
+@endpush

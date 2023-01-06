@@ -39,7 +39,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Fecha de Entrega</label>
                                                     <input wire:model.defer="model.fecha_entrega" class="form-control"
@@ -47,6 +47,36 @@
                                                     @error('model.fecha_entrega')
                                                         <div class="form-text text-danger text-xs">{{ $message }}
                                                         </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Area</label>
+                                                    <input wire:model.defer="model.area" class="form-control"
+                                                        type="text">
+                                                    @error('model.area')
+                                                        <div class="form-text text-danger text-xs">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Centro Operativo</label>
+                                                    <input wire:model.defer="model.centro_operativo"
+                                                        class="form-control" type="text">
+                                                    @error('model.centro_operativo')
+                                                        <div class="form-text text-danger text-xs">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Ubicación</label>
+                                                    <input wire:model.defer="model.ubicacion" class="form-control"
+                                                        type="text">
+                                                    @error('model.ubicacion')
+                                                        <div class="form-text text-danger text-xs">{{ $message }}</div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -138,8 +168,7 @@
                     </div>
                     <div class="d-flex flex-row-reverse">
                         <div class="p-2">
-                            <button wire:click="$emit('finalizar')"
-                                class="btn bg-gradient-primary">Finalizar</button>
+                            <button wire:click="$emit('finalizar')" class="btn bg-gradient-primary">Finalizar</button>
                         </div>
                     </div>
 

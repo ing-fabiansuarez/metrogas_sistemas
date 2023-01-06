@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">Empleado Responsable</label>
+                                        <label class="form-label">Quien Entrega</label>
                                         <select wire:model.defer="model.quien_entrega" class="form-control">
                                             <option value="">--- Seleccióne ---</option>
                                             @foreach ($users as $user)
@@ -84,7 +84,6 @@
                                 <button type="submit" class="btn bg-gradient-primary">Guardar</button>
                             </div>
                         </div>
-                        @json($errors->all())
                     </form>
                 </div>
             </div>

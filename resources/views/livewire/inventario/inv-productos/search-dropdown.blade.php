@@ -27,7 +27,7 @@
                                             <b>Marca:</b> {{ $item->marca->nombre }}
                                         </div>
                                     </div>
-                                    <button wire:click="$emit('selectProduct',{{ $item->id }})" type="button"
+                                    <button wire:click="$emit('beforeSelect',{{ $item->id }})" type="button"
                                         class="btn btn-success my-0">
                                         <i class="material-icons">add</i>
                                     </button>

@@ -13,10 +13,7 @@ use App\Http\Livewire\Inventario\InvActaEntrega\ActaEntregaShow;
 use App\Http\Livewire\Inventario\InvBodegas\Bodegas;
 use App\Http\Livewire\Inventario\InvMarcas\Marcas;
 use App\Http\Livewire\Inventario\InvProductos\Productos;
-use App\Models\InvActaDevolucion;
-use App\Models\InvActaEntrega;
-
-use Illuminate\Support\Facades\App;
+use App\Http\Livewire\Inventario\InvProductos\ProductosHistorial;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +55,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('bodegas', Bodegas::class)->name('inv.bodegas');
     Route::get('marcas', Marcas::class)->name('inv.marcas');
     Route::get('articulos', Productos::class)->name('inv.productos');
+    Route::get('articulos/{producto}/historial', ProductosHistorial::class)->name('inv.productos.historial');
     Route::get('actas-de-entrega', ActaEntrega::class)->name('inv.actas-entrega');
     Route::get('actas-de-entrega/nueva', ActaEntregaCreate::class)->name('inv.actas-entrega.create');
     Route::get('actas-de-entrega/{invActaEntrega}', ActaEntregaShow::class)->name('inv.actas-entrega.show');

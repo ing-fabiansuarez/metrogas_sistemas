@@ -20,7 +20,7 @@ enum EStateActaDevolucion
     {
         return match ($this) {
             EStateActaDevolucion::CREADO => 'CREADO',
-            EStateActaDevolucion::CERRADO => 'CERRADO',
+            EStateActaDevolucion::CERRADO => 'COMPLETO',
         };
     }
 

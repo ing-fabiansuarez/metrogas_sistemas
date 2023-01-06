@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Inventario\InvProductos;
 
+use App\Models\InvBodega;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\InvProducto;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
 
 class ProductosTable extends DataTableComponent
 {
@@ -19,19 +22,48 @@ class ProductosTable extends DataTableComponent
             ->setConfigurableAreas([
                 'toolbar-left-end' => 'elements.loader',
                 'toolbar-right-start' => 'elements.btn-nuevo',
-            ]);
+            ])
+            ->setSecondaryHeaderTrAttributes(function ($rows) {
+                return ['class' => 'bg-gray-100'];
+            })
+            ->setSecondaryHeaderTdAttributes(function (Column $column, $rows) {
+                if ($column->isField('id')) {
+                    return ['class' => 'text-red-500'];
+                }
+
+                return ['default' => true];
+            });
     }
 
     public function columns(): array
     {
         return [
+
             Column::make('Id', 'id')
                 ->sortable()
                 ->searchable(),
-          /*   Column::make('Ubicación', 'bodega_id')
-                ->sortable()
-                ->format(fn ($value, $row, Column $column) => $row->bodega != null ? $row->bodega->nombre : 'No esta en bodega')
-                ->searchable(), */
+            Column::make('')
+                // Note: The view() method is reserved for columns that have a field
+                ->label(
+                    fn ($row, Column $column) => view('elements.acciones', [
+                        'row' => $row,
+                    ])
+                ),
+            Column::make('Ubicación')
+                ->secondaryHeader($this->getFilterByKey('ubicacion'))
+                ->label(
+                    function ($row, Column $column) {
+                        $producto = InvProducto::find($row->id);
+                        switch (get_class($producto->ubicacion)) {
+                            case InvBodega::class:
+                                echo $producto->ubicacion->nombre;
+                                break;
+                            default:
+                                echo "No se encontro Ubicación";
+                                break;
+                        }
+                    }
+                )->html(),
             Column::make('Nombre', 'nombre')
                 ->sortable()
                 ->searchable(),
@@ -51,13 +83,22 @@ class ProductosTable extends DataTableComponent
                 ->searchable(),
             Column::make('Fecha Creación', 'created_at')->sortable(),
             Column::make('Actualización', 'updated_at')->sortable(),
-            Column::make('Acciones')
-                // Note: The view() method is reserved for columns that have a field
-                ->label(
-                    fn ($row, Column $column) => view('elements.acciones', [
-                        'row' => $row,
-                    ])
-                ),
+
+        ];
+    }
+
+    public function filters(): array
+    {
+        return [
+            TextFilter::make('ubicacion')
+                ->config([
+                    'placeholder' => 'Ubicación',
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    $builder->whereHasMorph('ubicacion', [InvBodega::class], function (Builder $query) use ($value) {
+                        $query->where('nombre', 'ilike', "%$value%");
+                    });
+                }),
         ];
     }
 }

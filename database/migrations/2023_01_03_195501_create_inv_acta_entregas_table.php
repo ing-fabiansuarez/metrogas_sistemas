@@ -18,6 +18,11 @@ return new class extends Migration
             $table->text('descripcion');
             $table->date('fecha_entrega');
             $table->foreignId('responsable')->constrained('users');
+
+            $table->string('area');
+            $table->string('centro_operativo');
+            $table->string('ubicacion');
+
             $table->tinyInteger('estado');
             $table->timestamps();
             $table->foreignId('created_by')->constrained('users');

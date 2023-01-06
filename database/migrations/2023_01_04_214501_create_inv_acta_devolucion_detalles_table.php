@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps(); */
             $table->primary(['producto_id', 'acta_devolucion_id']);
             $table->foreignId('producto_id')->constrained('inv_productos');
-            $table->foreignId('acta_devolucion_id')->constrained('inv_acta_devolucions');
+            $table->foreignId('acta_devolucion_id')->constrained('inv_acta_devolucions')->onDelete('cascade');
             $table->bigInteger('cantidad');
         });
     }

@@ -16,6 +16,9 @@ class ActaEntregaShow extends Component
         'model.responsable' => 'required',
         'model.fecha_entrega' => 'required',
         'model.descripcion' => 'required',
+        'model.area' => 'required',
+        'model.centro_operativo' => 'required',
+        'model.ubicacion' => 'required',
     ];
 
     protected $listeners = ['selectProduct' => 'addDetalle', 'deleteDetalle', 'finalizar'];

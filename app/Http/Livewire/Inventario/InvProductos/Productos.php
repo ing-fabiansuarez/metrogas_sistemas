@@ -69,6 +69,15 @@ class Productos extends Component
     public function edit(InvProducto $objeto)
     {
         $this->model = $objeto;
+
+        //Se hace la validacion para comprobar si esta en la bodega
+        if (!get_class($objeto->ubicacion) == InvBodega::class) {
+            return "NO SE PUEDE EDITAR NO ESTA EN BODEGA";
+        }
+
+        //asignar al objeto la bodega
+        $this->idBodega = $objeto->ubicacion->id;
+
         //abrir el modal
         $this->dispatchBrowserEvent('open-modal');
         $this->loadArrayCaracteristicas();

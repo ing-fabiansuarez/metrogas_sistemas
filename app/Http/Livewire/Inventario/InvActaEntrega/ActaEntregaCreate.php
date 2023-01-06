@@ -15,6 +15,9 @@ class ActaEntregaCreate extends Component
         'model.responsable' => 'required',
         'model.fecha_entrega' => 'required',
         'model.descripcion' => 'required',
+        'model.area' => 'required',
+        'model.centro_operativo' => 'required',
+        'model.ubicacion' => 'required',
     ];
 
     public function mount($model = new InvActaEntrega())
