@@ -19,6 +19,8 @@ class InvProductosFactory extends Factory
         return [
             'nombre' => $this->faker->name,
             'descripcion' => $this->faker->sentence,
+            'codigo_interno' => 'COD' . $this->faker->number,
+            'serial' => 'SERIAL',
         ];
     }
 }

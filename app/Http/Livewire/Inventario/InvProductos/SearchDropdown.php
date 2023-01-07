@@ -16,13 +16,16 @@ class SearchDropdown extends Component
     {
         $search = $this->searchTerm;
         if ($this->searchTerm != '') {
-            $search =
-                $this->results = InvProducto::from('inv_productos as a')
-                ->where(function ($query) use ($search) {
+
+            $busqueda = InvProducto::from('inv_productos as a');
+            if ($this->searchTerm != '*') {
+                $busqueda = $busqueda->where(function ($query) use ($search) {
                     $query = $query->orWhere('a.nombre', 'ilike', "%$search%");
                     $query = $query->orWhere('a.codigo_interno', 'ilike', "%$search%");
                     $query = $query->orWhere('a.serial', 'ilike', "%$search%");
-                })->get();
+                });
+            }
+            $this->results = $busqueda->limit(10)->get();
             if (count($this->results) <= 0) {
                 $this->msg = "No se encontraron resultados...";
             }

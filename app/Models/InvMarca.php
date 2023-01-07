@@ -14,6 +14,16 @@ class InvMarca extends Model
 
     public function productos()
     {
-        return $this->hasMany(InvProducto::class);
+        return $this->hasMany(InvProducto::class, 'marca_id', 'id');
+    }
+
+    public function canDelete()
+    {
+        if (
+            $this->productos->count() == 0
+        ) {
+            return true;
+        }
+        return false;
     }
 }

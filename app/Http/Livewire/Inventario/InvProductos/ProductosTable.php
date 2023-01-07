@@ -6,6 +6,7 @@ use App\Models\InvBodega;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\InvProducto;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
 
@@ -46,11 +47,32 @@ class ProductosTable extends DataTableComponent
                 // Note: The view() method is reserved for columns that have a field
                 ->label(
                     fn ($row, Column $column) => view('elements.productos.acciones', [
-                        'row' => $row,
+                        'row' => InvProducto::find($row->id),
                     ])
                 ),
+            Column::make('Nombre', 'nombre')
+                ->sortable()
+                ->searchable(),
+            Column::make('Disponibilidad', 'ubicacion_id')
+                ->format(
+                    function ($value, $row, Column $column) {
+                        $producto = InvProducto::find($row->id);
+                        switch (get_class($producto->ubicacion)) {
+                            case InvBodega::class:
+                                return '<span class="badge badge-pill badge-lg bg-gradient-success">DISPONIBLE</span>';
+                                break;
+                            case User::class:
+                                return '<span class="badge badge-pill badge-lg bg-gradient-warning">OCUPADO</span>';
+                                break;
+                            default:
+                                echo "No se encontro Ubicación";
+                                break;
+                        }
+                    }
+                )->html()->sortable(),
             Column::make('Ubicación')
                 ->secondaryHeader($this->getFilterByKey('ubicacion'))
+                ->sortable()
                 ->label(
                     function ($row, Column $column) {
                         $producto = InvProducto::find($row->id);
@@ -58,15 +80,17 @@ class ProductosTable extends DataTableComponent
                             case InvBodega::class:
                                 echo $producto->ubicacion->nombre;
                                 break;
+                            case User::class:
+                                echo $producto->ubicacion->name;
+                                break;
                             default:
                                 echo "No se encontro Ubicación";
                                 break;
                         }
                     }
                 )->html(),
-            Column::make('Nombre', 'nombre')
-                ->sortable()
-                ->searchable(),
+
+
             Column::make('Codigo interno', 'codigo_interno')
                 ->sortable()
                 ->searchable(),

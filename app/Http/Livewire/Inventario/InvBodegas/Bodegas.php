@@ -50,7 +50,14 @@ class Bodegas extends Component
     }
     public function delete(InvBodega $objeto)
     {
-
+        if (!$this->model->canDelete()) {
+            $this->emit('mensaje', [
+                'typeMsg' => 1,
+                'title' => 'No se puede Eliminar!',
+                'cuerpo' => 'La bodega no se puede eliminar porque esta asociado con otros registros'
+            ]);
+            return;
+        }
         $this->model = $objeto;
         $this->model->delete();
         //comunicar a la tabla que hay uno nuevo

@@ -7,6 +7,8 @@ use App\Models\InvMarca;
 use App\Models\InvProducto;
 use App\Models\InvProductoCaracteristica;
 use App\Models\InvProductoHistorial;
+use App\Models\User;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -54,25 +56,44 @@ class Productos extends Component
     {
         $this->validate();
 
-
+        if ($this->model->exists()) {
+            $iconHistorial = "edit";
+            $descripcionHistorial = "Editarón la información del producto";
+            //Se valida que este en obdega para poder ser editado
+            switch (get_class($this->model->ubicacion)) {
+                case User::class:
+                    $this->emit('mensaje', [
+                        'typeMsg' => 1,
+                        'title' => 'No se puede Editar!',
+                        'cuerpo' => 'El producto no se puede editar porque lo tiene un empleado'
+                    ]);
+                    return;
+                    break;
+            }
+        } else {
+            $iconHistorial = "add_circle";
+            $descripcionHistorial = "Se creó el producto.";
+        }
 
         $this->model->created_by = auth()->user()->id;
         $bodega = InvBodega::find($this->idBodega);
 
         DB::beginTransaction();
         $bodega->productos()->save($this->model);
-        $this->model->refresh();
+
+        //agregar las caracteristicas al producto
+        $this->model->caracteristicas()->delete();
+        $this->model->caracteristicas()->createMany($this->arrayCarac);
 
         //guardar el historial
         $historial = new InvProductoHistorial();
-        $historial->producto_id = $this->model->id;
         $historial->responsable = $this->model->created_by;
-        $historial->icon = "add_circle";
-        $historial->descripcion = "Se creó el producto.";
-        $bodega->historial()->save($historial);
+        $historial->icon = $iconHistorial;
+        $historial->descripcion = $descripcionHistorial;
+        $historial->ubicacion()->associate(User::find(auth()->user()->id));
+        $this->model->historial()->save($historial);
 
-        $this->model->caracteristicas()->delete();
-        $this->model->caracteristicas()->createMany($this->arrayCarac);
+
         DB::commit();
 
 
@@ -103,10 +124,19 @@ class Productos extends Component
     }
     public function delete(InvProducto $objeto)
     {
-        $this->model = $objeto;
-        $this->model->delete();
-        //comunicar a la tabla que hay uno nuevo
-        $this->emit('render');
+        try {
+            $this->model = $objeto;
+            $this->model->delete();
+            //comunicar a la tabla que hay uno nuevo
+            $this->emit('render');
+        } catch (Exception $e) {
+            $this->emit('mensaje', [
+                'typeMsg' => 1,
+                'title' => 'No se puede Eliminar!',
+                'cuerpo' => 'El producto puede estar relacionado en otros registros'
+            ]);
+            return;
+        }
     }
 
     public function addCaracteristica()

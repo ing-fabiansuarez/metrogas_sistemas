@@ -61,6 +61,14 @@ class ActaEntregaShow extends Component
             ]);
             return;
         }
+        if (get_class($product->ubicacion) == User::class) {
+            $this->emit('mensaje', [
+                'typeMsg' => 1,
+                'title' => 'No se puede agregar!',
+                'cuerpo' => 'El producto no esta disponible, lo tiene el empleado ' . $product->ubicacion->name
+            ]);
+            return;
+        }
         $this->model->detalle()->attach($product, ['stock' => 1]);
         $this->model->refresh();
     }

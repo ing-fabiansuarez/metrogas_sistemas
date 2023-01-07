@@ -26,6 +26,24 @@
                                         <div class="col-md-12 text-xs">
                                             <b>Marca:</b> {{ $item->marca->nombre }}
                                         </div>
+                                        <div class="col-md-12 text-xs">
+                                            @switch(get_class($item->ubicacion))
+                                                @case(App\Models\InvBodega::class)
+                                                    <span
+                                                        class="badge badge-pill badge-lg bg-gradient-success">DISPONIBLE</span>
+                                                @break
+
+                                                @case(App\Models\User::class)
+                                                    <span class="badge badge-pill badge-lg bg-gradient-warning">OCUPADO</span>
+                                                @break
+
+                                                @default
+                                                    <span class="badge badge-pill badge-lg bg-gradient-danger">NO ENCONTRO
+                                                        DISPONIBILIDAD</span>
+                                            @endswitch
+                                        </div>
+
+
                                     </div>
                                     <button wire:click="$emit('beforeSelect',{{ $item->id }})" type="button"
                                         class="btn btn-success my-0">

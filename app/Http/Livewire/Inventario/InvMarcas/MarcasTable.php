@@ -37,7 +37,7 @@ class MarcasTable extends DataTableComponent
                 // Note: The view() method is reserved for columns that have a field
                 ->label(
                     fn($row, Column $column) => view('elements.acciones', [
-                        'row' => $row,
+                        'row' => InvMarca::find($row->id)
                     ])
                 ),
         ];

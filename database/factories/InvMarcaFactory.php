@@ -17,7 +17,7 @@ class InvMarcaFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'nombre' => 'Marca - '.$this->faker->name,
         ];
     }
 }

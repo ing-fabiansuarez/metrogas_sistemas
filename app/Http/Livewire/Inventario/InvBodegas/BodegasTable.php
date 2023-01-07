@@ -35,7 +35,7 @@ class BodegasTable extends DataTableComponent
             Column::make('Acciones')
                 // Note: The view() method is reserved for columns that have a field
                 ->label(
-                    fn($row, Column $column) => view('elements.acciones', [
+                    fn($row, Column $column) => view('elements.bodegas.acciones', [
                         'row' => $row,
                     ])
                 ),

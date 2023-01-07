@@ -63,6 +63,28 @@ class ActaDevolucionShow extends Component
             ]);
             return;
         }
+        switch (get_class($product->ubicacion)) {
+            case User::class:
+                if ($product->ubicacion->id != $this->model->quien_entrega) {
+                    $this->emit('mensaje', [
+                        'typeMsg' => 1,
+                        'title' => 'No se puede agregar!',
+                        'cuerpo' => 'El producto no se puede agregar por que el poducto no esta en el poder del empleado '
+                    ]);
+                    return;
+                }
+
+                break;
+            case InvBodega::class:
+                $this->emit('mensaje', [
+                    'typeMsg' => 1,
+                    'title' => 'No se puede agregar!',
+                    'cuerpo' => 'El producto no se puede agregar por que el poducto esta en bodega'
+                ]);
+                return;
+                break;
+        }
+
         $this->model->detalle()->attach($product, ['cantidad' => 1]);
         $this->model->refresh();
     }
