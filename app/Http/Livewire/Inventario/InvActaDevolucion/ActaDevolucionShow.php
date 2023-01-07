@@ -4,8 +4,11 @@ namespace App\Http\Livewire\Inventario\InvActaDevolucion;
 
 use App\Enums\EStateActaDevolucion;
 use App\Models\InvActaDevolucion;
+use App\Models\InvBodega;
 use App\Models\InvProducto;
+use App\Models\InvProductoHistorial;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class ActaDevolucionShow extends Component
@@ -20,6 +23,7 @@ class ActaDevolucionShow extends Component
         'model.centro_operativo' => 'required',
         'model.ubicacion' => 'required',
         'model.descripcion' => 'required',
+        'model.bodega_id_entrega' => 'required',
     ];
 
     protected $listeners = ['selectProduct' => 'addDetalle', 'deleteDetalle', 'finalizar'];
@@ -39,7 +43,8 @@ class ActaDevolucionShow extends Component
                         ['id' => 'paso2', 'nombre' => 'Agregar Articulos', 'icon' => '\f015'],
                         /* ['id' => 'paso3', 'nombre' => 'Revisión', 'icon' => '\f007'], */
                     ],
-                    'users' => User::getEmpleadosActivos()
+                    'users' => User::getEmpleadosActivos(),
+                    'bodegas' => InvBodega::all()
                 ]);
                 break;
             case EStateActaDevolucion::CERRADO->getId():
@@ -68,7 +73,28 @@ class ActaDevolucionShow extends Component
     }
     public function finalizar()
     {
+        DB::beginTransaction();
         $this->model->estado = EStateActaDevolucion::CERRADO->getId();
         $this->model->save();
+
+
+        $bodega = InvBodega::find($this->model->bodega_id_entrega);
+        foreach ($this->model->detalle as $detalle) {
+            //cambiar la ubicacion actual del producto
+            $detalle->ubicacion()->associate($bodega);
+            $detalle->save();
+
+            //Cremos el historial de cada producto
+            $historial = new InvProductoHistorial();
+            $historial->responsable = $this->model->quien_entrega;
+            $historial->icon = "receipt_long";
+            $historial->descripcion = "Por medio del acta de devolución N° " . $this->model->id . ' el articulo regreso a la bodega ' . $bodega->nombre;
+            $historial->ubicacion()->associate($bodega);
+            $detalle->historial()->save($historial);
+        }
+
+
+
+        DB::commit();
     }
 }

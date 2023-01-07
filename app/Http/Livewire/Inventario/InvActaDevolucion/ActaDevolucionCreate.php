@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Inventario\InvActaDevolucion;
 
 use App\Enums\EStateActaDevolucion;
 use App\Models\InvActaDevolucion;
+use App\Models\InvBodega;
 use App\Models\User;
 use Livewire\Component;
 
@@ -18,6 +19,7 @@ class ActaDevolucionCreate extends Component
         'model.centro_operativo' => 'required',
         'model.ubicacion' => 'required',
         'model.descripcion' => 'required',
+        'model.bodega_id_entrega' => 'required',
     ];
 
     public function mount($model = new InvActaDevolucion())
@@ -32,7 +34,8 @@ class ActaDevolucionCreate extends Component
                 ['id' => 'paso2', 'nombre' => 'Agregar Articulos', 'icon' => '\f015'],
                 /*   ['id' => 'paso3', 'nombre' => 'Revisión', 'icon' => '\f007'], */
             ],
-            'users' => User::getEmpleadosActivos()
+            'users' => User::getEmpleadosActivos(),
+            'bodegas' => InvBodega::all()
         ]);
     }
 

@@ -41,6 +41,23 @@
 
                                             <div class="col-md-6">
                                                 <div class="mb-3">
+                                                    <label class="form-label">Bodega a la que Entrega</label>
+                                                    <select wire:model.defer="model.bodega_id_entrega"
+                                                        class="form-control">
+                                                        <option value="">---Seleccionar---</option>
+                                                        @foreach ($bodegas as $item)
+                                                            <option value="{{ $item->id }}">{{ $item->nombre }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('model.bodega_id_entrega')
+                                                        <div class="form-text text-danger text-xs">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
                                                     <label class="form-label">Fecha de Entrega</label>
                                                     <input wire:model.defer="model.fecha_entrega" class="form-control"
                                                         type="date">
@@ -76,7 +93,8 @@
                                                     <input wire:model.defer="model.ubicacion" class="form-control"
                                                         type="text">
                                                     @error('model.ubicacion')
-                                                        <div class="form-text text-danger text-xs">{{ $message }}</div>
+                                                        <div class="form-text text-danger text-xs">{{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>

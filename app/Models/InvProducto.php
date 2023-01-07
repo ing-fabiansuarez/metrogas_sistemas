@@ -44,8 +44,12 @@ class InvProducto extends Model
         return $this->morphTo(__FUNCTION__, 'ubicacion_type', 'ubicacion_id');
     }
 
-    /* public function almacenBodega()
+    public function historial()
     {
-        return $this->belongsToMany(InvBodega::class, 'inv_almacen_bodegas', 'producto_id', 'bodega_id')->using(InvAlmacenBodega::class);
-    } */
+        return $this->hasMany(
+            InvProductoHistorial::class,
+            'producto_id',
+            'id'
+        );
+    }
 }

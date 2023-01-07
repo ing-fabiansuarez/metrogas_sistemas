@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('descripcion');
             $table->date('fecha_entrega');
             $table->foreignId('quien_entrega')->constrained('users');
+            $table->foreignId('bodega_id_entrega')->constrained('inv_bodegas');
 
             $table->string('area');
             $table->string('centro_operativo');

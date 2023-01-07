@@ -6,6 +6,8 @@ use App\Models\InvBodega;
 use App\Models\InvMarca;
 use App\Models\InvProducto;
 use App\Models\InvProductoCaracteristica;
+use App\Models\InvProductoHistorial;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Productos extends Component
@@ -52,13 +54,30 @@ class Productos extends Component
     {
         $this->validate();
 
-        $this->model->created_by = auth()->user()->id;
 
+
+        $this->model->created_by = auth()->user()->id;
         $bodega = InvBodega::find($this->idBodega);
 
+        DB::beginTransaction();
         $bodega->productos()->save($this->model);
+        $this->model->refresh();
+
+        //guardar el historial
+        $historial = new InvProductoHistorial();
+        $historial->producto_id = $this->model->id;
+        $historial->responsable = $this->model->created_by;
+        $historial->icon = "add_circle";
+        $historial->descripcion = "Se creó el producto.";
+        $bodega->historial()->save($historial);
+
         $this->model->caracteristicas()->delete();
         $this->model->caracteristicas()->createMany($this->arrayCarac);
+        DB::commit();
+
+
+        $this->arrayCarac = [];
+
         //comunicar a la tabla que hay uno nuevo
         $this->emit('render');
         //ocultar el modal

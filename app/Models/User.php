@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return User::all();
     }
+
+    public function productos()
+    {
+        return $this->morphMany(InvProducto::class, 'ubicacion');
+    }
 }

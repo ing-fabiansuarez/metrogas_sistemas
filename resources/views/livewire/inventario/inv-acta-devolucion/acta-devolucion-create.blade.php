@@ -13,7 +13,7 @@
                         <div class="p-4 bg-light my-3">
 
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Quien Entrega</label>
                                         <select wire:model.defer="model.quien_entrega" class="form-control">
@@ -27,7 +27,20 @@
                                         @enderror
                                     </div>
                                 </div>
-
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Bodega a la que Entrega</label>
+                                        <select wire:model.defer="model.bodega_id_entrega" class="form-control">
+                                            <option value="">---Seleccionar---</option>
+                                            @foreach ($bodegas as $item)
+                                                <option value="{{ $item->id }}">{{ $item->nombre }}</option>
+                                            @endforeach
+                                        </select>
+                                        @error('model.bodega_id_entrega')
+                                            <div class="form-text text-danger text-xs">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Fecha de Entrega</label>

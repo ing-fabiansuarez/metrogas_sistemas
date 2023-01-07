@@ -45,7 +45,7 @@ class ProductosTable extends DataTableComponent
             Column::make('')
                 // Note: The view() method is reserved for columns that have a field
                 ->label(
-                    fn ($row, Column $column) => view('elements.acciones', [
+                    fn ($row, Column $column) => view('elements.productos.acciones', [
                         'row' => $row,
                     ])
                 ),

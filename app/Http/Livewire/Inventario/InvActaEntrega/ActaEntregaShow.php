@@ -5,8 +5,10 @@ namespace App\Http\Livewire\Inventario\InvActaEntrega;
 use App\Enums\EStateActaEntrega;
 use App\Models\InvActaEntrega;
 use App\Models\InvProducto;
+use App\Models\InvProductoHistorial;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class ActaEntregaShow extends Component
@@ -69,7 +71,28 @@ class ActaEntregaShow extends Component
     }
     public function finalizar()
     {
+        DB::beginTransaction();
         $this->model->estado = EStateActaEntrega::CERRADO->getId();
         $this->model->save();
+
+
+        $user = User::find(auth()->user()->id);
+        foreach ($this->model->detalle as $detalle) {
+            //cambiar la ubicacion actual del producto
+            $detalle->ubicacion()->associate($user);
+            $detalle->save();
+
+            //Cremos el historial de cada producto
+            $historial = new InvProductoHistorial();
+            $historial->responsable = $this->model->responsable;
+            $historial->icon = "receipt_long";
+            $historial->descripcion = "Se Agrego a la acta de Entrega N° " . $this->model->id;
+            $historial->ubicacion()->associate($user);
+            $detalle->historial()->save($historial);
+        }
+
+
+
+        DB::commit();
     }
 }

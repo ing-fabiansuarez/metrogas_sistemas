@@ -16,4 +16,9 @@ class InvBodega extends Model
     {
         return $this->morphMany(InvProducto::class, 'ubicacion');
     }
+
+    public function historial()
+    {
+        return $this->morphMany(InvProductoHistorial::class, 'ubicacion');
+    }
 }
