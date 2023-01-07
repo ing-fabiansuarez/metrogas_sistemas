@@ -80,7 +80,7 @@
     <script src="{{ asset('assets') }}/js/core/bootstrap.min.js"></script>
     <script src="{{ asset('assets') }}/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="{{ asset('assets') }}/js/plugins/smooth-scrollbar.min.js"></script>
-    
+
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -96,12 +96,27 @@
     <script src="{{ asset('assets') }}/js/material-dashboard.min.js?v=3.0.0"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    
+
     @livewireScripts
-    
+
     @stack('js')
 
-    
+    {{-- mesajes --}}
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Livewire.on('mensaje', data => {
+            switch (data.typeMsg) {
+                case 1:
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops... ' + data.title,
+                        text: data.cuerpo,
+                    });
+                    break;
+            }
+        })
+    </script>
+
 </body>
 
 </html>

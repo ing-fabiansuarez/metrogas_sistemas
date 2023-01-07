@@ -6,6 +6,7 @@ use App\Enums\EStateActaEntrega;
 use App\Models\InvActaEntrega;
 use App\Models\InvProducto;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class ActaEntregaShow extends Component
@@ -30,7 +31,7 @@ class ActaEntregaShow extends Component
 
     public function render()
     {
-        
+
         switch ($this->model->estado) {
             case EStateActaEntrega::CREADO->getId():
                 return view('livewire.inventario.inv-acta-entrega.acta-entrega-show', [
@@ -50,7 +51,15 @@ class ActaEntregaShow extends Component
 
     public function addDetalle(InvProducto $product)
     {
-        $this->model->detalle()->save($product, ['stock' => 1]);
+        if ($this->model->detalle->contains($product)) {
+            $this->emit('mensaje', [
+                'typeMsg' => 1,
+                'title' => 'No se puede agregar!',
+                'cuerpo' => 'El producto ya esta agregado en el detalle!'
+            ]);
+            return;
+        }
+        $this->model->detalle()->attach($product, ['stock' => 1]);
         $this->model->refresh();
     }
     public function deleteDetalle(InvProducto $product)

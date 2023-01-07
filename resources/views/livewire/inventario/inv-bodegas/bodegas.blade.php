@@ -47,7 +47,6 @@
             </div>
         </div>
     </div>
-
 </div>
 @push('js')
     {{-- mesajes --}}
@@ -59,6 +58,13 @@
         });
         window.addEventListener('open-modal', event => {
             $('#modalModelo').modal('show');
+        });
+        window.addEventListener('eliminado', event => {
+            Swal.fire(
+                '{{ __('forms.deleted') }}',
+                '{{ __('forms.message.delete') }}',
+                'success'
+            )
         });
         Livewire.on('message', function(title, message) {
             Swal.fire(
@@ -80,11 +86,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     Livewire.emit('delete', objId);
-                    Swal.fire(
-                        '{{ __('forms.deleted') }}',
-                        '{{ __('forms.message.delete') }}',
-                        'success'
-                    )
+
                 }
             })
         });

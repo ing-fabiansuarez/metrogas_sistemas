@@ -14,7 +14,6 @@ use App\Http\Livewire\Inventario\InvBodegas\Bodegas;
 use App\Http\Livewire\Inventario\InvMarcas\Marcas;
 use App\Http\Livewire\Inventario\InvProductos\Productos;
 use App\Http\Livewire\Inventario\InvProductos\ProductosHistorial;
-use App\Http\Livewire\Util\ShowMessage;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,4 +80,3 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('rtl', RTL::class)->name('rtl'); */
 });
 
-Route::get('prueba', ShowMessage::class);

@@ -53,5 +53,6 @@ class Marcas extends Component
         $this->model->delete();
         //comunicar a la tabla que hay uno nuevo
         $this->emit('render');
+        $this->dispatchBrowserEvent('eliminado');
     }
 }

@@ -50,9 +50,12 @@ class Bodegas extends Component
     }
     public function delete(InvBodega $objeto)
     {
+
         $this->model = $objeto;
         $this->model->delete();
         //comunicar a la tabla que hay uno nuevo
         $this->emit('render');
+        //envia el mensaje de eliminado
+        $this->dispatchBrowserEvent('eliminado');
     }
 }

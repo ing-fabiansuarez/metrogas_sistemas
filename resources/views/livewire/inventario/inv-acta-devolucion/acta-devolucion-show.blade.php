@@ -168,7 +168,8 @@
                     </div>
                     <div class="d-flex flex-row-reverse">
                         <div class="p-2">
-                            <button wire:click="$emit('finalizar')" class="btn bg-gradient-primary">Finalizar</button>
+                            <button wire:click="$emit('finalizar')" class="btn bg-gradient-primary">APLICAR AL
+                                INVENTARIO</button>
                         </div>
                     </div>
 

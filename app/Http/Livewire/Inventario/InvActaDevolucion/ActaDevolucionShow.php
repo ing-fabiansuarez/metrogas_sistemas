@@ -50,7 +50,15 @@ class ActaDevolucionShow extends Component
 
     public function addDetalle(InvProducto $product)
     {
-        $this->model->detalle()->save($product, ['cantidad' => 1]);
+        if ($this->model->detalle->contains($product)) {
+            $this->emit('mensaje', [
+                'typeMsg' => 1,
+                'title' => 'No se puede agregar!',
+                'cuerpo' => 'El producto ya esta agregado en el detalle!'
+            ]);
+            return;
+        }
+        $this->model->detalle()->attach($product, ['cantidad' => 1]);
         $this->model->refresh();
     }
     public function deleteDetalle(InvProducto $product)

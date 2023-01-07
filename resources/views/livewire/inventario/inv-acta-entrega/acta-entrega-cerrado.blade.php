@@ -6,7 +6,8 @@
                     <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                         <div class="d-flex justify-content-between">
                             <h6 class="text-white text-uppercase ps-3">Acta de entrega de articulos al empleado</h6>
-                            <a href="{{ route('pdf.acta-entrega',$model) }}" class="btn bg-primaryy mx-3">Imprimir</a>
+                            <a target="_blank" href="{{ route('pdf.acta-entrega', $model) }}"
+                                class="btn bg-primaryy mx-3">Imprimir</a>
                         </div>
                     </div>
                 </div>
