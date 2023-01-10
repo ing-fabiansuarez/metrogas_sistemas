@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('username')->unique()->after('id')->nullable();
             $table->string('objectguid')->nullable()->after('username');
-            $table->string('email_aux')->after('email')->nullable();
+            $table->string('email_ldap')->after('email')->nullable();
             $table->string('jobtitle_ldap')->after('email_aux');
             $table->tinyInteger('estado')->default(0)->after('objectguid');
         });

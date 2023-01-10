@@ -289,11 +289,12 @@ return [
 
     'sync_attributes' => [
 
-        'email' => 'userprincipalname',
+        App\Handlers\LdapAttributeHandler::class
+        /* 'email' => 'userprincipalname',
         'username' => 'samaccountname',
         'name' => 'cn',
         'jobtitle_ldap' => 'description',
-        'email_aux' => 'mail'
+        'email_aux' => 'mail' */
 
     ],
 
