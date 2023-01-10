@@ -322,3 +322,7 @@ Updivision Blog: <https://updivision.com/blog/?ref=md2ll-readme>
 1. Crear el modelo y migraciones y factories si es necesario `php artisan make:model -mf <nombre-modelo>`
 2. Crear el componente general livewire `php artisan make:livewire <nombre-componente>`
 2. Crear el componente de la table livewire `php artisan make:datatable <nombre-componente-table> <nombre-modelo>`
+
+# Documentacion de Adldap2-Laravel (usuarios del directorio activo)
+* https://github.com/Adldap2/Adldap2-Laravel
+* https://adldap2.github.io/Adldap2-Laravel/#/

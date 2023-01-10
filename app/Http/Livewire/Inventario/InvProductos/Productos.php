@@ -49,7 +49,7 @@ class Productos extends Component
     }
     public function add()
     {
-        $this->model = new InvProducto();
+       dd($this->model = new InvProducto());
     }
 
     public function save()
