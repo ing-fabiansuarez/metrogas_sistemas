@@ -80,3 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('rtl', RTL::class)->name('rtl'); */
 });
 
+
+Route::get('ldap', function () {
+    return "hos";
+});

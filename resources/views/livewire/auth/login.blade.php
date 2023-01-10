@@ -22,11 +22,11 @@
                             </div>
                         @endif
                         <div
-                            class="input-group input-group-outline mt-3 @if (strlen($email ?? '') > 0) is-filled @endif">
+                            class="input-group input-group-outline mt-3 @if (strlen($username ?? '') > 0) is-filled @endif">
                             <label class="form-label">Usuario</label>
-                            <input wire:model='email' type="Usuario" class="form-control">
+                            <input wire:model='username' type="text" class="form-control">
                         </div>
-                        @error('email')
+                        @error('username')
                             <p class='text-danger inputerror'>{{ $message }} </p>
                         @enderror
 
