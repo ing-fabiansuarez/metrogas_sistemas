@@ -58,7 +58,7 @@ class Productos extends Component
         $this->validate();
         //dd($this->model);
 
-        if ($this->model->id!=null) {
+        if ($this->model->id != null) {
             $iconHistorial = "edit";
             $descripcionHistorial = "Editarón la información del producto";
             //Se valida que este en obdega para poder ser editado

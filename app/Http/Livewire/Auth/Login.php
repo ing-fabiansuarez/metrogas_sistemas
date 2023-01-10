@@ -8,11 +8,11 @@ use Livewire\Component;
 class Login extends Component
 {
 
-    public $email='';
-    public $password='';
+    public $username = '';
+    public $password = '';
 
-    protected $rules= [
-        'email' => 'required|email',
+    protected $rules = [
+        'username' => 'required',
         'password' => 'required'
 
     ];
@@ -22,24 +22,24 @@ class Login extends Component
         return view('livewire.auth.login');
     }
 
-    public function mount() {
-      
-        $this->fill(['email' => 'admin@material.com', 'password' => 'secret']);    
+    public function mount()
+    {
+
+        //$this->fill(['email' => 'admin@material.com', 'password' => 'secret']);
     }
-    
+
     public function store()
     {
         $attributes = $this->validate();
 
-        if (! auth()->attempt($attributes)) {
+        if (!auth()->attempt($attributes)) {
             throw ValidationException::withMessages([
-                'email' => 'Your provided credentials could not be verified.'
+                'username' => 'Usuario o contraseña incorrectos.'
             ]);
         }
 
         session()->regenerate();
 
         return redirect('/dashboard');
-
     }
 }
