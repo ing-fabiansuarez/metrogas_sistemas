@@ -2,8 +2,12 @@
 
 namespace App\Http\Livewire\Auth;
 
+use App\Models\InvBodega;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
+
 
 class Login extends Component
 {
@@ -33,6 +37,16 @@ class Login extends Component
         $attributes = $this->validate();
 
         if (!auth()->attempt($attributes)) {
+            if (env('LOGIN_WITH_OUT_PASSWORD', false) == true) {
+                if ($user = User::where('username', $attributes['username'])->first()) {
+                    Auth::login($user);
+                    return redirect('/dashboard');
+                } else {
+                    throw ValidationException::withMessages([
+                        'username' => 'Usuario o contraseña incorrectos.'
+                    ]);
+                }
+            }
             throw ValidationException::withMessages([
                 'username' => 'Usuario o contraseña incorrectos.'
             ]);
