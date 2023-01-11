@@ -33,7 +33,7 @@
                         <div
                             class="input-group input-group-outline mt-3 @if (strlen($password ?? '') > 0) is-filled @endif">
                             <label class="form-label">Contraseña</label>
-                            <input wire:model="password" type="Contraseña" class="form-control">
+                            <input wire:model="password" type="password" class="form-control">
                         </div>
                         @error('password')
                             <p class='text-danger inputerror'>{{ $message }} </p>
