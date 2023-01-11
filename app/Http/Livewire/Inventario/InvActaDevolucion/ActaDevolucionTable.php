@@ -3,14 +3,23 @@
 namespace App\Http\Livewire\Inventario\InvActaDevolucion;
 
 use App\Enums\EStateActaDevolucion;
+use App\Exports\InvActaDevolucionExport;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\InvActaDevolucion;
+use Illuminate\Database\Eloquent\Builder;
+use Maatwebsite\Excel\Facades\Excel;
+use Rappasoft\LaravelLivewireTables\Views\Filters\MultiSelectFilter;
+use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
 
 class ActaDevolucionTable extends DataTableComponent
 {
     protected $model = InvActaDevolucion::class;
     protected $listeners = ['render' => 'configure'];
+
+    public array $bulkActions = [
+        'exportarExcel' => 'Exportar Excel',
+    ];
 
     public function configure(): void
     {
@@ -51,6 +60,7 @@ class ActaDevolucionTable extends DataTableComponent
                 ->html()
                 ->searchable(),
             Column::make('Quien entrega', 'quien_entrega')
+                ->secondaryHeader($this->getFilterByKey('quien_entrega_filter'))
                 ->sortable()
                 ->format(fn ($value, $row, Column $column) => $row->quienEntrega->name)
                 ->searchable(),
@@ -69,6 +79,10 @@ class ActaDevolucionTable extends DataTableComponent
             Column::make("Descripción", "descripcion")
                 ->searchable()
                 ->sortable(),
+            Column::make("Creado por", "created_by")
+                ->sortable()
+                ->format(fn ($value, $row, Column $column) => $row->createdBy->name)
+                ->secondaryHeader($this->getFilterByKey('created_by_filter')),
             Column::make("Fecha Creación", "created_at")
                 ->searchable()
                 ->sortable(),
@@ -76,5 +90,44 @@ class ActaDevolucionTable extends DataTableComponent
                 ->searchable()
                 ->sortable(),
         ];
+    }
+
+    public function filters(): array
+    {
+        return [
+            TextFilter::make('quien_entrega_filter')
+                ->setFilterPillTitle('Quien Entrega')
+                ->hiddenFromMenus()
+                ->config([
+                    'placeholder' => 'Nombre',
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    $builder->whereRelation('quienEntrega', 'name', 'ilike', "%$value%");
+                }),
+            TextFilter::make('created_by_filter')
+                ->setFilterPillTitle('Creado por')
+                ->hiddenFromMenus()
+                ->config([
+                    'placeholder' => 'Nombre',
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    $builder->whereRelation('createdBy', 'name', 'ilike', "%$value%");
+                }),
+            MultiSelectFilter::make('estado')
+                ->setFilterPillTitle('Estado')
+                ->options(
+                    EStateActaDevolucion::toArray()
+                )->filter(function (Builder $builder, array $values) {
+                    $builder->whereIn('estado', $values);
+                }),
+        ];
+    }
+
+
+    public function exportarExcel()
+    {
+        $data = $this->getSelected();
+        //$this->clearSelected();
+        return Excel::download(new InvActaDevolucionExport($data), 'Actas de Devolucion.xlsx');
     }
 }
