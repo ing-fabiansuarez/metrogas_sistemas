@@ -1,2 +1,1 @@
-<span wire:click="destroy" class="d-sm-inline d-none">Sign
-    Out</span>
+<span wire:click="destroy"> <i class="fa fa-sign-out me-sm-1"></i> Cerrar Sesión</span>
