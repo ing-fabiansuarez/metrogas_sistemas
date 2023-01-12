@@ -14,7 +14,9 @@ use App\Http\Livewire\Inventario\InvBodegas\Bodegas;
 use App\Http\Livewire\Inventario\InvMarcas\Marcas;
 use App\Http\Livewire\Inventario\InvProductos\Productos;
 use App\Http\Livewire\Inventario\InvProductos\ProductosHistorial;
+use App\Http\Livewire\Users\Roles\Roles;
 use App\Http\Livewire\Users\Users;
+use App\Http\Livewire\Users\UsersShow;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +73,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('usuarios', Users::class)->name('usuarios.index');
+    Route::get('usuarios/{user}', UsersShow::class)->name('usuarios.show');
+
+
+    Route::get('roles', Roles::class)->name('role.index');
 
     /*   Route::get('billing', Billing::class)->name('billing');
     Route::get('profile', Profile::class)->name('profile');

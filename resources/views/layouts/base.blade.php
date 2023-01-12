@@ -82,6 +82,15 @@
                         text: data.cuerpo,
                     });
                     break;
+                case 2:
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: data.title,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    break;
             }
         })
     </script>
