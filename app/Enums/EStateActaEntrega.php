@@ -32,4 +32,13 @@ enum EStateActaEntrega
             }
         }
     }
+
+    public static function toArray(): array
+    {
+        $array = [];
+        foreach (self::cases() as $caso) {
+            $array[$caso->getId()] = $caso->getName();
+        }
+        return $array;
+    }
 }

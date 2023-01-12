@@ -23,4 +23,9 @@ class InvActaDevolucion extends Model
     {
         return $this->belongsTo(User::class, 'quien_entrega', 'id');
     }
+
+    public function bodegaEntrega()
+    {
+        return $this->belongsTo(InvBodega::class, 'bodega_id_entrega', 'id');
+    }
 }

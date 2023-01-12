@@ -8,6 +8,7 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\InvProducto;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\TextFilter;
 
 class ProductosTable extends DataTableComponent
@@ -54,6 +55,7 @@ class ProductosTable extends DataTableComponent
                 ->sortable()
                 ->searchable(),
             Column::make('Disponibilidad', 'ubicacion_id')
+                ->secondaryHeader($this->getFilterByKey('disponibilidad'))
                 ->format(
                     function ($value, $row, Column $column) {
                         $producto = InvProducto::find($row->id);
@@ -114,7 +116,7 @@ class ProductosTable extends DataTableComponent
     public function filters(): array
     {
         return [
-            TextFilter::make('ubicacion')
+            TextFilter::make('Ubicación', 'ubicacion')
                 ->config([
                     'placeholder' => 'Ubicación',
                 ])
@@ -122,6 +124,22 @@ class ProductosTable extends DataTableComponent
                     $builder->whereHasMorph('ubicacion', [InvBodega::class], function (Builder $query) use ($value) {
                         $query->where('nombre', 'ilike', "%$value%");
                     });
+                }),
+            SelectFilter::make('Disponibilidad', 'disponibilidad')
+                ->options([
+                    '' => 'Todo',
+                    '1' => 'Disponible',
+                    '0' => 'Ocupado',
+                ])
+                ->filter(function (Builder $builder, string $value) {
+                    switch ($value) {
+                        case 1:
+                            $builder->where('ubicacion_type', InvBodega::class);
+                            break;
+                        case 0:
+                            $builder->where('ubicacion_type', User::class);
+                            break;
+                    }
                 }),
         ];
     }

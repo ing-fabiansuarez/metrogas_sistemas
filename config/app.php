@@ -182,6 +182,8 @@ return [
          * Inyeccion del Servicio para acceder al Directorio Activo
          */
         Adldap\Laravel\AdldapServiceProvider::class,
+
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*
@@ -238,7 +240,9 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         //alias para utilizarlo para recuperar las credeciales del directorio activo
-        'Adldap' => Adldap\Laravel\Facades\Adldap::class
+        'Adldap' => Adldap\Laravel\Facades\Adldap::class,
+
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

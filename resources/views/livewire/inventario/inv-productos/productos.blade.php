@@ -12,6 +12,10 @@
                     </div>
                     <div class="card-body px-0 pb-2 mx-4">
                         <livewire:inventario.inv-productos.productos-table theme="bootstrap-5" />
+
+                    </div>
+                    <div class="card-body px-0 pb-2 mx-4">
+                        <livewire:inventario.inv-productos.productos-report />
                     </div>
                 </div>
             </div>

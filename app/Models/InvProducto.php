@@ -52,4 +52,13 @@ class InvProducto extends Model
             'id'
         );
     }
+
+    public function caracteristicasToArray()
+    {
+        $cadena = '';
+        foreach ($this->caracteristicas as $item) {
+            $cadena .= ' * ' . $item->nombre . ' = ' . $item->valor;
+        }
+        return $cadena;
+    }
 }
