@@ -29,8 +29,15 @@
                                             <div class="col-md-8">
                                                 <div class="mb-3">
                                                     <label class="form-label">Empleado Quien entrega</label>
-                                                    <input value="{{ $model->createdBy->name }}" class="form-control"
+                                                    <input value="{{ $model->quienEntrega->name }}" class="form-control"
                                                         type="text" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Bodega a la que Entrega</label>
+                                                    <input value="{{ $model->bodegaEntrega->nombre }}"
+                                                        class="form-control" type="text" disabled>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -40,6 +47,8 @@
                                                         type="date" disabled>
                                                 </div>
                                             </div>
+
+
                                             <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Area</label>
@@ -56,7 +65,8 @@
                                                     <input value="{{ $model->centro_operativo }}" class="form-control"
                                                         type="text" disabled>
                                                     @error('model.centro_operativo')
-                                                        <div class="form-text text-danger text-xs">{{ $message }}</div>
+                                                        <div class="form-text text-danger text-xs">{{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -66,7 +76,8 @@
                                                     <input value="{{ $model->ubicacion }}" class="form-control"
                                                         type="text" disabled>
                                                     @error('model.ubicacion')
-                                                        <div class="form-text text-danger text-xs">{{ $message }}</div>
+                                                        <div class="form-text text-danger text-xs">{{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>

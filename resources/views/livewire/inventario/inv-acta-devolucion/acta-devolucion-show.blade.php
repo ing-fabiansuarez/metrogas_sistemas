@@ -25,10 +25,13 @@
                                             <div class="col-md-12">
                                                 <div class="mb-3">
                                                     <label class="form-label">Empleado Quien Entrega</label>
-                                                    <select wire:model.defer="model.quien_entrega" class="form-control">
+                                                    <select value="{{ $model->quien_entrega }}" class="form-control"
+                                                        disabled>
                                                         <option value="">--- Seleccióne ---</option>
                                                         @foreach ($users as $user)
-                                                            <option value="{{ $user->id }}">{{ $user->name }}
+                                                            <option value="{{ $user->id }}"
+                                                                @if ($model->quien_entrega == $user->id) selected @endif>
+                                                                {{ $user->name }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -83,7 +86,8 @@
                                                     <input wire:model.defer="model.centro_operativo"
                                                         class="form-control" type="text">
                                                     @error('model.centro_operativo')
-                                                        <div class="form-text text-danger text-xs">{{ $message }}</div>
+                                                        <div class="form-text text-danger text-xs">{{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>

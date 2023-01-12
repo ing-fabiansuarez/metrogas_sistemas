@@ -84,7 +84,7 @@ class ActaEntregaShow extends Component
         $this->model->save();
 
 
-        $user = User::find(auth()->user()->id);
+        $user = User::find($this->model->responsable);
         foreach ($this->model->detalle as $detalle) {
             //cambiar la ubicacion actual del producto
             $detalle->ubicacion()->associate($user);

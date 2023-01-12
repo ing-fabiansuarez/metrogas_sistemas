@@ -29,17 +29,38 @@
                                             <div class="col-md-8">
                                                 <div class="mb-3">
                                                     <label class="form-label">Empleado Responsable</label>
-                                                    <input value="{{ $model->createdBy->name }}" class="form-control"
-                                                        type="text" disabled>
+                                                    <input value="{{ $model->userResponsable->name }}"
+                                                        class="form-control" type="text" disabled>
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="mb-3">
                                                     <label class="form-label">Fecha de Entrega</label>
                                                     <input value="{{ $model->fecha_entrega }}" class="form-control"
                                                         type="date" disabled>
 
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Area</label>
+                                                    <input value="{{ $model->area }}" class="form-control"
+                                                        type="text" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Centro Operativo</label>
+                                                    <input value="{{ $model->centro_operativo }}" class="form-control"
+                                                        type="text" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Ubicación</label>
+                                                    <input value="{{ $model->ubicacion }}" class="form-control"
+                                                        type="text" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-floating">
