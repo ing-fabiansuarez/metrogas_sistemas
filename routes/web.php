@@ -14,6 +14,7 @@ use App\Http\Livewire\Inventario\InvBodegas\Bodegas;
 use App\Http\Livewire\Inventario\InvMarcas\Marcas;
 use App\Http\Livewire\Inventario\InvProductos\Productos;
 use App\Http\Livewire\Inventario\InvProductos\ProductosHistorial;
+use App\Http\Livewire\Users\Users;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/acta-de-entrega/{actaEntrega}', [GenerarPdfController::class, 'generarActaEntrega'])->name('acta-entrega');
         Route::get('/acta-de-devolucion/{actaDevolucion}', [GenerarPdfController::class, 'generarActaDevolucion'])->name('acta-devolucion');
     });
+
+
+    Route::get('usuarios', Users::class)->name('usuarios.index');
 
     /*   Route::get('billing', Billing::class)->name('billing');
     Route::get('profile', Profile::class)->name('profile');
