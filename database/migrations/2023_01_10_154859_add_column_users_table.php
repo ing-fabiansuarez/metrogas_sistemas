@@ -33,7 +33,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('username');
             $table->dropColumn('objectguid');
-            $table->dropColumn('email_aux');
+            $table->dropColumn('email_ldap');
             $table->dropColumn('jobtitle_ldap');
             $table->dropColumn('estado');
         });
