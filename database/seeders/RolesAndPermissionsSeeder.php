@@ -13,11 +13,17 @@ class RolesAndPermissionsSeeder extends Seeder
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // create permissions
+        // create PERMISSIONS
+        //INVENTARIOS
         Permission::create(['name' => 'todo_actas_entrega', 'descripcion' => 'Gestión de las actas de entrega']);
         Permission::create(['name' => 'todo_actas_devolucion', 'descripcion' => 'Gestión de las actas de devolución']);
 
-        // crear Role
+        //crear Role Admistrador
+        $roleAdmin = Role::create(['name' => 'admin', 'descripcion' => 'Rol Super Admistrador']);
+        $roleAdmin->givePermissionTo('todo_actas_entrega');
+        $roleAdmin->givePermissionTo('todo_actas_devolucion');
+
+        // crear Role Inventario
         $role = Role::create(['name' => 'rol inventario', 'descripcion' => 'Rol Admistrador Inventarios']);
         $role->givePermissionTo('todo_actas_entrega');
         $role->givePermissionTo('todo_actas_devolucion');

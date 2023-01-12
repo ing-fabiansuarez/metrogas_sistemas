@@ -19,6 +19,12 @@ class UsersTable extends DataTableComponent
     public function columns(): array
     {
         return [
+            Column::make('')
+                ->label(
+                    fn ($row, Column $column) => view('elements.users.acciones', [
+                        'row' => $row,
+                    ])
+                ),
             Column::make("Id", "id")
                 ->sortable()
                 ->searchable(),
@@ -28,6 +34,7 @@ class UsersTable extends DataTableComponent
             Column::make("Email", "email")
                 ->searchable()
                 ->sortable(),
+
             /* Column::make("Location", "location")
                 ->sortable(),
             Column::make("Phone", "phone")
