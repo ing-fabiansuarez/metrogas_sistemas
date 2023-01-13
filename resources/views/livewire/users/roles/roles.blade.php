@@ -30,8 +30,8 @@
                         @foreach ($allPermissions as $item)
                             <div class="form-check">
                                 <label class="form-check-label">
-                                    <input wire:model.defer="permissions" value="{{ $item->id }}" type="checkbox">
-                                    {{ $item->description }}
+                                    <input wire:model.defer="permissions" value="{{ $item->name }}" type="checkbox">
+                                    {{ $item->descripcion }}
                                 </label>
                             </div>
                         @endforeach

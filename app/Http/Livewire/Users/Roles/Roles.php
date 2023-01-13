@@ -11,9 +11,10 @@ class Roles extends Component
     public $TITLE_TABLE = 'Roles';
 
     public $model;
+
+    public $permissions = [];
     protected $rules = [
         'model.descripcion' => 'required',
-        'model.permissions.*.id' => '',
     ];
     protected $listeners = ['add', 'save', 'edit', 'delete'];
 
@@ -30,24 +31,36 @@ class Roles extends Component
     public function add()
     {
         $this->model = new Role();
+        $this->cargarPermisos();
+        $this->permissions = [];
     }
 
     public function save()
     {
-        dd($this->model->permissions);
-        /* $this->validate();
-        $this->model->name = $this->model->descripcion;
+        $this->validate();
+        if ($this->model->name == null) {
+            $this->model->name = $this->model->descripcion;
+        }
         $this->model->save();
+
+        //guardar los permisos
+        $this->model->syncPermissions($this->permissions);
+        $this->permissions = [];
+
+        // Reset cached roles and permissions
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
         //comunicar a la tabla que hay uno nuevo
         $this->emit('render');
         //ocultar el modal
         $this->dispatchBrowserEvent('close-modal');
         //mostrar el mensaje de que se creo correctamente
-        $this->emit('message', 'Buen trabajo!', 'Se han guardado los cambios.'); */
+        $this->emit('message', 'Buen trabajo!', 'Se han guardado los cambios.');
     }
     public function edit(Role $objeto)
     {
         $this->model = $objeto;
+        $this->cargarPermisos();
         //abrir el modal
         $this->dispatchBrowserEvent('open-modal');
     }
@@ -58,5 +71,13 @@ class Roles extends Component
         //comunicar a la tabla que hay uno nuevo
         $this->emit('render');
         $this->dispatchBrowserEvent('eliminado');
+    }
+
+    private function cargarPermisos()
+    {
+        $this->permissions = [];
+        foreach ($this->model->permissions()->get() as $permissio) {
+            array_push($this->permissions, $permissio->name);
+        }
     }
 }

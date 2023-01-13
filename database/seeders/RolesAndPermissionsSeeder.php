@@ -15,11 +15,13 @@ class RolesAndPermissionsSeeder extends Seeder
 
         // create PERMISSIONS
         //INVENTARIOS
+        Permission::create(['name' => 'config', 'descripcion' => 'Acceso a la Configuración']);
         Permission::create(['name' => 'todo_actas_entrega', 'descripcion' => 'Gestión de las actas de entrega']);
         Permission::create(['name' => 'todo_actas_devolucion', 'descripcion' => 'Gestión de las actas de devolución']);
 
         //crear Role Admistrador
         $roleAdmin = Role::create(['name' => 'admin', 'descripcion' => 'Rol Super Admistrador']);
+        $roleAdmin->givePermissionTo('config');
         $roleAdmin->givePermissionTo('todo_actas_entrega');
         $roleAdmin->givePermissionTo('todo_actas_devolucion');
 
