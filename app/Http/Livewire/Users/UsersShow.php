@@ -31,7 +31,7 @@ class UsersShow extends Component
 
     public function save()
     {
-        $this->model->assignRole($this->rolesSelected);
+        $this->model->syncRoles($this->rolesSelected);
         return $this->emit('mensaje', [
             'typeMsg' => 2,
             'title' => 'Se agregarón los roles a los Usuarios',
