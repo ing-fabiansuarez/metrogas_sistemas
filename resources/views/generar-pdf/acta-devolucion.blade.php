@@ -162,14 +162,12 @@
         </tr>
         <tr>
             <td>
-                FIRMA:__________________<br>
                 {{ $object->quienEntrega->name }}<br>
-                Cedula
+                {{ $object->quienEntrega->jobtitle_ldap }}
             </td>
             <td>
-                FIRMA:__________________<br>
                 {{ $object->createdBy->name }}<br>
-                Cedula
+                {{ $object->createdBy->jobtitle_ldap }}
             </td>
         </tr>
     </table>
