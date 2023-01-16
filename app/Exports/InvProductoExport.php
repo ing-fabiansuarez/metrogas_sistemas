@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use App\Models\InvBodega;
 use App\Models\InvProducto;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
@@ -36,6 +37,7 @@ class InvProductoExport implements FromCollection, WithColumnFormatting, WithMap
             'ULTIMA ACTUALIZACIÓN',
             'CREADO POR',
             'CARACTERISTICAS',
+            'DISPONIBILIDAD'
         ];
     }
 
@@ -55,6 +57,7 @@ class InvProductoExport implements FromCollection, WithColumnFormatting, WithMap
                 $invoice->updated_at == null ? '' : Date::dateTimeToExcel($invoice->updated_at),
                 $invoice->createdBy->name == null ? '' : $invoice->createdBy->name,
                 $invoice->caracteristicasToArray() == null ? '' : $invoice->caracteristicasToArray(),
+                $invoice->ubicacion == null ? '' : (get_class($invoice->ubicacion) == InvBodega::class ? 'DISPONIBLE' : 'OCUPADO')
             ]
         ];
     }

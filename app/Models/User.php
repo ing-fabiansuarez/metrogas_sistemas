@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public static function getEmpleadosActivos()
     {
-        return User::all();
+        return User::orderBy('name', 'asc')->get();
     }
 
     public function productos()
