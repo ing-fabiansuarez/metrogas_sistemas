@@ -175,28 +175,30 @@
 
     <h3 style="font-size: 0.8rem">OBSERVACIONES</h3>
     <ol style="font-size: 0.7rem; text-align: justify;">
-        <li>En caso de daño físico o lógico de alguno de los elementos entregados, donde se compruebe su responsabilidad
-            por negligencia en el uso, responderé por
-            el valor de la reparación o en caso de no tener arreglo asumiré el costo total comercial del equipo nuevo.
+        <li>
+            En caso de daño físico, perdida o hurto de alguno de los elementos entregados, donde se compruebe su
+            responsabilidad por negligencia en el uso, serán aplicandos los lineamientos establecidos en el reglamento
+            interno de trabajo de Metrogas.
         </li>
-        <li>En caso de pérdida o hurto me comprometo a realizar el correspondiente denuncio ante la autoridad competente
-            e informar oportunamente a METROGAS
-            DE COLOMBIA S.A. E.S.P. adjuntando el soporte correspondiente emitido por la autoridad. Cuando exista tal
-            hecho sea por negligencia o culpa
-            responderé por los elementos dados en custodia o por una suma igual al valor comercial de los elementos, por
-            lo cual autorizo para que el valor
-            correspondiente se descuente de mi salario o prestaciones económicas a que tenga derecho cuando esto suceda.
+        <li>
+            En caso de pérdida o hurto me comprometo a realizar el correspondiente denuncio ante la autoridad competente
+            e informar oportunamente
+            a METROGAS DE COLOMBIA S.A. E.S.P. adjuntando el soporte correspondiente emitido por la autoridad.
         </li>
-        <li>Me comprometo a respetar y mantener la confidencialidad de los datos e informaciones que manipule dentro y
-            fuera de la compañía, consignados en los
-            recursos informáticos entregados, y la obligación de devolver la información a la que se ha tenido acceso en
-            el momento que termine la relación
-            contractual. La sustracción o revelación de dicha información puede ser constitutivo de un ilícito de
-            naturaleza penal.</li>
-        <li>A la terminación de contrato, vacaciones, incapacidades, etc., el computador y los demás activos que fueron
-            entregados deberán ser reintegrados en
-            buenas condiciones, solo con el deterioro normal por su funcionamiento u operación, de lo contrario asumiré
-            el costo por reparación o reposición.</li>
+        <li>
+            Me comprometo a respetar y mantener la confidencialidad de los datos e informaciones que manipule dentro y
+            fuera de la compañía,
+            consignados en los recursos informáticos entregados, y la obligación de devolver la información a la que se
+            ha tenido acceso en el momento que termine la relación contractual. La sustracción o revelación de dicha
+            información puede ser constitutivo de un ilícito
+            de naturaleza penal.
+        </li>
+        <li>
+            A la terminación de contrato, vacaciones, incapacidades, licencias etc., el computador y los demás activos
+            que fueron entregados
+            deberán ser reintegrados en buenas condiciones al jefe inmediato, solo con el deterioro normal por su
+            funcionamiento u operación.
+        </li>
     </ol>
 
 </body>
