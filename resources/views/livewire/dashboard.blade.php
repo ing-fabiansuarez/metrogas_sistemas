@@ -110,7 +110,7 @@
                                     <div class="d-flex align-items-center text-sm">
                                         <a target="_blank" href="{{ route('pdf.acta-entrega', $actaEntrega->id) }}"
                                             class="btn btn-link text-dark text-sm mb-0 px-0 ms-4">
-                                            N° Acta 4 <i
+                                            N° Acta {{$actaEntrega->id}} <i
                                                 class="material-icons text-lg position-relative me-1">picture_as_pdf</i>
                                             PDF</a>
                                     </div>
