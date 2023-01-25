@@ -18,6 +18,7 @@ use App\Http\Livewire\Inventario\InvProductos\ProductosHistorial;
 use App\Http\Livewire\Profile;
 use App\Http\Livewire\Users\Roles\Roles;
 use App\Http\Livewire\Users\Users;
+use App\Http\Livewire\Users\UsersCreate;
 use App\Http\Livewire\Users\UsersShow;
 
 /*
@@ -45,10 +46,10 @@ Route::get('reset-password/{id}', ResetPassword::class)
 /*  Route::get('sign-up', Register::class)
     ->middleware('guest')
     ->name('register'); */
- Route::get('sign-in', Login::class)
+Route::get('sign-in', Login::class)
     ->middleware('guest')
-    ->name('login'); 
- 
+    ->name('login');
+
 /* Route::get('user-profile', UserProfile::class)
     ->middleware('auth')
     ->name('user-profile');
@@ -61,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => ['can:config']], function () {
         Route::get('usuarios', Users::class)->name('usuarios.index');
+        Route::get('usuarios/nueva', UsersCreate::class)->name('usuarios.create');
         Route::get('usuarios/{user}', UsersShow::class)->name('usuarios.show');
         Route::get('roles', Roles::class)->name('role.index');
     });
@@ -82,7 +84,6 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('/acta-de-devolucion/{actaDevolucion}', [GenerarPdfController::class, 'generarActaDevolucion'])->name('acta-devolucion');
         });
     });
-
 
 
 
