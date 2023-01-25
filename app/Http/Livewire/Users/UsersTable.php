@@ -13,7 +13,12 @@ class UsersTable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')
+            ->setDefaultSort('id', 'desc')
+            ->setConfigurableAreas([
+                'toolbar-left-end' => 'elements.loader',
+                'toolbar-right-start' => 'elements.users.btn-nuevo',
+            ]);;
     }
 
     public function columns(): array
